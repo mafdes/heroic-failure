@@ -10,10 +10,16 @@ export class StartMenu {
       event.preventDefault();
       onNameSubmitted(this.nameInput.value.trim() || "Sin Nombre");
     });
-    document.querySelector("#dexterity-choice").addEventListener("click", onChallengeChosen);
+    document.querySelectorAll(".challenge-card").forEach((card) => card.addEventListener("click", () => onChallengeChosen(card.id.replace("-choice", ""))));
   }
   showName() { this.home.hidden = true; this.nameForm.hidden = false; this.nameInput.focus(); }
-  showSelection(name) { this.nameForm.hidden = true; this.picker.hidden = false; document.querySelector("#welcome-name").textContent = `${name}, el Estado necesita clasificarte.`; }
+  showSelection(name, attributes) {
+    this.nameForm.hidden = true; this.picker.hidden = false; document.querySelector("#welcome-name").textContent = `${name}, el Estado necesita clasificarte.`;
+    document.querySelectorAll(".challenge-card").forEach((card) => {
+      const id = card.id.replace("-choice", ""); const score = attributes[id]; const action = card.querySelector(".card-action");
+      card.disabled = score !== null; action.textContent = score === null ? "Presentarse al examen →" : `Resultado registrado: ${score} / 20`;
+    });
+  }
   hide() { this.root.hidden = true; }
-  show() { this.root.hidden = false; this.picker.hidden = false; }
+  show(name, attributes) { this.root.hidden = false; this.showSelection(name, attributes); }
 }
