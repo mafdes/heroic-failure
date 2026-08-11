@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Heroic Failure, un RPG satírico de creación de personaje." />
     <title>Heroic Failure — V0.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=MedievalSharp&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -13,8 +16,34 @@
         <p class="eyebrow">RPG de aptitudes cuestionables</p>
         <h1>Heroic Failure</h1>
       </header>
-      <canvas id="game" width="960" height="540" aria-label="Heroic Failure"></canvas>
-      <p class="controls">Espacio, clic o toque para continuar y detener el indicador.</p>
+      <section class="game-frame">
+        <canvas id="game" width="960" height="540" aria-label="Heroic Failure"></canvas>
+        <section id="start-menu" class="menu-panel" aria-live="polite">
+          <div id="menu-home" class="menu-view">
+            <p class="chapter">El registro de aspirantes</p>
+            <h2>¿Listo para decepcionar a tu linaje?</h2>
+            <button id="new-game" class="ornate-button" type="button">Nueva partida</button>
+          </div>
+          <form id="name-form" class="menu-view name-form" hidden>
+            <p class="chapter">Primero, el papeleo</p>
+            <label for="player-name">¿Cómo se llama el aspirante?</label>
+            <input id="player-name" name="player-name" type="text" maxlength="24" autocomplete="off" placeholder="Nombre gloriosamente mediocre" required />
+            <button class="ornate-button" type="submit">Firmar la solicitud</button>
+          </form>
+          <div id="challenge-picker" class="menu-view" hidden>
+            <p class="chapter">Examen de aptitud</p>
+            <h2 id="welcome-name">El Estado necesita clasificarte.</h2>
+            <button id="dexterity-choice" class="challenge-card" type="button">
+              <span class="card-icon">✦</span>
+              <span class="card-title">Destreza</span>
+              <span class="card-copy">Atina una zona móvil. Veinte niveles. Ninguna dignidad.</span>
+              <span class="card-action">Presentarse al examen →</span>
+            </button>
+            <p class="availability">Más exámenes llegarán cuando el ministerio encuentre presupuesto.</p>
+          </div>
+        </section>
+      </section>
+      <p class="controls">En la prueba: espacio, clic o toque para detener el indicador.</p>
     </main>
     <script type="module" src="game/main.js"></script>
   </body>
