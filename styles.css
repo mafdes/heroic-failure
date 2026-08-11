@@ -21,7 +21,7 @@ canvas { width: 100%; height: auto; display: block; border: 6px solid #d3a658; i
 .name-form label { font: 600 clamp(1.2rem, 2.4vw, 1.8rem)/1.35 Cinzel, serif; }
 .name-form input { width: min(440px, 100%); padding: 1rem 1.15rem; border: 2px solid #d3a658; border-radius: 3px; outline: none; color: #f7ead0; background: #17131ce8; box-shadow: inset 0 0 18px #0008; font: 1.05rem Cinzel, serif; text-align: center; }
 .name-form input:focus { border-color: #f7ead0; box-shadow: 0 0 0 3px #d3a65866, inset 0 0 18px #0008; }
-.challenge-card { width: 100%; min-height: 250px; display: grid; align-content: start; gap: .55rem; margin: 0; padding: 1.35rem 1.6rem; border: 1px solid #d3a658; border-radius: 7px; cursor: pointer; color: #f7ead0; background: linear-gradient(135deg, #4a3044, #282034); box-shadow: inset 0 0 0 3px #211d2a, 0 9px 25px #0007; text-align: left; transition: transform .16s, border-color .16s, background .16s; }
+.challenge-card { width: 100%; min-height: 150px; display: grid; align-content: start; gap: .4rem; margin: 0; padding: 1rem 1.2rem; border: 1px solid #d3a658; border-radius: 7px; cursor: pointer; color: #f7ead0; background: linear-gradient(135deg, #4a3044, #282034); box-shadow: inset 0 0 0 3px #211d2a, 0 9px 25px #0007; text-align: left; transition: transform .16s, border-color .16s, background .16s; }
 .challenge-card:disabled { cursor: default; opacity: .66; filter: saturate(.45); transform: none; }
 .challenge-card:disabled:hover { border-color: #d3a658; background: linear-gradient(135deg, #4a3044, #282034); }
 .challenge-card:hover, .challenge-card:focus-visible { border-color: #f7ead0; background: linear-gradient(135deg, #604054, #342540); outline: none; transform: translateY(-4px); }

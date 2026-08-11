@@ -5,6 +5,8 @@ import { Input } from "../engine/input.js";
 import { StartMenu } from "../ui/start-menu.js";
 import { StrengthChallenge } from "../challenges/strength-challenge.js";
 import { IntelligenceChallenge } from "../challenges/intelligence-challenge.js";
+import { ConstitutionChallenge } from "../challenges/constitution-challenge.js";
+import { AgilityChallenge } from "../challenges/agility-challenge.js";
 
 const canvas = document.querySelector("#game");
 const context = canvas.getContext("2d");
@@ -13,7 +15,9 @@ const sheet = new CharacterSheet();
 const dexterity = new DexterityChallenge();
 const strength = new StrengthChallenge();
 const intelligence = new IntelligenceChallenge();
-const challenges = { dexterity, strength, intelligence };
+const constitution = new ConstitutionChallenge();
+const agility = new AgilityChallenge();
+const challenges = { dexterity, strength, intelligence, constitution, agility };
 let screen = "menu";
 let playerName = "";
 let activeChallenge = null;
@@ -25,9 +29,11 @@ const startMenu = new StartMenu({
 new GameLoop((delta) => {
   const pressed = input.consumePress();
   const choice = input.consumeChoice();
+  const tap = input.consumeTap();
+  const direction = input.consumeDirection();
   if (screen === "challenge") {
     if (activeChallenge.status === "result" && pressed) { startMenu.show(playerName, sheet.attributes); screen = "menu"; return; }
-    activeChallenge.update(delta, pressed, input.held, input.consumeRelease(), choice);
+    activeChallenge.update(delta, pressed, input.held, input.consumeRelease(), choice, tap, direction);
     if (activeChallenge.status === "result") sheet.setAttribute(activeChallenge.attributeId, activeChallenge.score);
   }
 }, () => { if (screen === "challenge") activeChallenge.draw(context); }).start();
