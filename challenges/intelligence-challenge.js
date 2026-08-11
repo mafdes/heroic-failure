@@ -34,6 +34,7 @@ export class IntelligenceChallenge {
   title(ctx, text, y) { ctx.fillStyle = "#f3c46b"; ctx.font = "bold 38px Georgia"; ctx.fillText(text, 480, y); }
   copy(ctx, text, y, color = "#f7ead0") { ctx.fillStyle = color; ctx.font = "22px Georgia"; ctx.fillText(text, 480, y); }
   drawIntro(ctx) { this.title(ctx, "PRUEBA DE INTELIGENCIA", 145); this.copy(ctx, "Memoriza sellos rúnicos antes de que desaparezcan.", 215); this.copy(ctx, "La administración llama a esto pensar.", 250, "#d3a658"); this.copy(ctx, "Pulsa ESPACIO o haz clic para empezar.", 350); }
-  drawCountdown(ctx) { this.title(ctx, "PREPÁRATE", 170); this.copy(ctx, String(Math.max(1, Math.ceil(this.timer))), 300, "#f3c46b"); this.copy(ctx, "Los sellos no esperarán a que leas el manual.", 370, "#bdb0b6"); }
+  drawCountdown(ctx) { drawCountdown(ctx, this.timer, "Los sellos no esperarán a que leas el manual."); }
   drawResult(ctx) { this.title(ctx, "RESULTADO OFICIAL", 145); this.copy(ctx, `INTELIGENCIA  ${this.score} / 20`, 235, "#f3c46b"); const verdict = this.score >= 18 ? "La academia quiere tu cráneo. Para estudiarlo." : this.score >= 10 ? "Has leído al menos el título del libro." : "El libro ha ganado esta discusión."; this.copy(ctx, verdict, 295); this.copy(ctx, "Pulsa ESPACIO o haz clic para volver a las pruebas.", 390, "#bdb0b6"); }
 }
+import { drawCountdown } from "../engine/countdown.js";

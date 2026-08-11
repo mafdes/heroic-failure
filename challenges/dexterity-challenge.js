@@ -37,7 +37,7 @@ export class DexterityChallenge {
   title(ctx, text, y) { ctx.fillStyle = "#f3c46b"; ctx.font = "bold 38px Georgia"; ctx.fillText(text, 480, y); }
   copy(ctx, text, y, color = "#f7ead0") { ctx.fillStyle = color; ctx.font = "22px Georgia"; ctx.fillText(text, 480, y); }
   drawIntro(ctx) { this.title(ctx, "PRUEBA DE DESTREZA", 145); this.copy(ctx, "20 niveles. Una zona dorada. Cero garantías.", 215); this.copy(ctx, "A partir del nivel 2, la burocracia se pone creativa.", 250, "#d3a658"); this.copy(ctx, "Pulsa ESPACIO o haz clic para empezar.", 350); }
-  drawCountdown(ctx) { this.title(ctx, "PREPÁRATE", 170); this.copy(ctx, String(Math.max(1, Math.ceil(this.countdown))), 300, "#f3c46b"); this.copy(ctx, "No hagas clic todavía.", 370, "#bdb0b6"); }
+  drawCountdown(ctx) { drawCountdown(ctx, this.countdown, "No hagas clic todavía."); }
   drawRound(ctx) {
     const config = roundConfig(this.round); const x = 130; const y = 265; const width = 700; const height = 42; const zoneStart = x + width * (.5 - config.zone / 2);
     this.title(ctx, `DESTREZA — NIVEL ${this.round + 1} DE ${TOTAL_ROUNDS}`, 120); this.copy(ctx, this.round < 1 ? "Calentamiento administrativo." : "Cuando quieras. Nadie confía en ti.", 170, "#bdb0b6");
@@ -45,3 +45,4 @@ export class DexterityChallenge {
   }
   drawResult(ctx) { this.title(ctx, "RESULTADO OFICIAL", 145); this.copy(ctx, `DESTREZA  ${this.score} / 20`, 235, "#f3c46b"); const verdict = this.score >= 18 ? "Inquietante. Tal vez tengas futuro." : this.score >= 10 ? "Aceptable. No preguntaremos cómo." : "El reino ha anotado tus limitaciones."; this.copy(ctx, verdict, 295); this.copy(ctx, "Pulsa ESPACIO o haz clic para volver a las pruebas.", 390, "#bdb0b6"); }
 }
+import { drawCountdown } from "../engine/countdown.js";

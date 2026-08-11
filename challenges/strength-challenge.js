@@ -42,7 +42,8 @@ export class StrengthChallenge {
   title(ctx, text, y) { ctx.fillStyle = "#f3c46b"; ctx.font = "bold 38px Georgia"; ctx.fillText(text, 480, y); }
   copy(ctx, text, y, color = "#f7ead0") { ctx.fillStyle = color; ctx.font = "22px Georgia"; ctx.fillText(text, 480, y); }
   drawIntro(ctx) { this.title(ctx, "PRUEBA DE FUERZA", 145); this.copy(ctx, "Carga la pesa y suéltala en la zona rojiza.", 215); this.copy(ctx, "20 niveles. Tu columna ha solicitado discreción.", 250, "#d3a658"); this.copy(ctx, "Pulsa ESPACIO o haz clic para empezar.", 350); }
-  drawCountdown(ctx) { this.title(ctx, "PREPÁRATE", 170); this.copy(ctx, String(Math.max(1, Math.ceil(this.countdown))), 300, "#f3c46b"); this.copy(ctx, "La pesa todavía no te conoce.", 370, "#bdb0b6"); }
+  drawCountdown(ctx) { drawCountdown(ctx, this.countdown, "La pesa todavía no te conoce."); }
   drawReady(ctx) { this.title(ctx, "LA PESA ESTÁ LISTA", 175); this.copy(ctx, "Pulsa y MANTÉN ESPACIO o CLIC para cargar.", 280); this.copy(ctx, "Suelta solo cuando estés dentro de la zona rojiza.", 330, "#d3a658"); }
   drawResult(ctx) { this.title(ctx, "RESULTADO OFICIAL", 145); this.copy(ctx, `FUERZA  ${this.score} / 20`, 235, "#f3c46b"); const verdict = this.score >= 18 ? "La pesa ha pedido asilo político." : this.score >= 10 ? "Suficiente para mover una silla con permiso." : "Tu músculo ha presentado una queja formal."; this.copy(ctx, verdict, 295); this.copy(ctx, "Pulsa ESPACIO o haz clic para volver a las pruebas.", 390, "#bdb0b6"); }
 }
+import { drawCountdown } from "../engine/countdown.js";
