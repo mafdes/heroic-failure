@@ -1,0 +1,7 @@
+[
+  { "id": "strength", "name": "Fuerza", "description": "Pegar, empujar y presumir de espalda." },
+  { "id": "dexterity", "name": "Destreza", "description": "Atinar antes de que el problema te atine." },
+  { "id": "constitution", "name": "Constitución", "description": "Seguir vivo por pura insistencia." },
+  { "id": "intelligence", "name": "Inteligencia", "description": "Resolver el puzle sin probar todas las palancas." },
+  { "id": "agility", "name": "Agilidad", "description": "Correr, esquivar y llegar tarde con estilo." }
+]
