@@ -1,5 +1,6 @@
 :root { color-scheme: dark; font-family: Cinzel, Georgia, serif; background: #161319; color: #f7ead0; }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { min-height: 100vh; margin: 0; display: grid; place-items: center; background: radial-gradient(circle at top, #3d2940, #161319 58%); }
 .game-shell { width: min(960px, 94vw); padding: 2rem 0; text-align: center; }
 .masthead { margin-bottom: 1rem; }
