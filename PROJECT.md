@@ -50,12 +50,10 @@ Las pruebas deben aumentar progresivamente de dificultad. Las puntuaciones altas
 Una barra horizontal contiene una zona de acierto y un indicador móvil. El jugador debe detenerlo dentro de la zona.
 
 - Nivel 1: zona amplia y fácil.
-- Nivel 2: zona menor.
-- Nivel 3: difícil.
-- Nivel 4: muy difícil.
-- Nivel 5: prácticamente absurdo.
+- Desde el nivel 2: la ventana se encoge y el indicador acelera de forma agresiva.
+- Nivel 20: prácticamente absurdo.
 
-No alcanzar determinados niveles deja una puntuación baja. Para V0.1, la prueba usa una escala provisional de 1 a 18: fallar antes del primer acierto da 1; cada ronda superada concede 4, 7, 10, 13 o 16; superar las cinco concede 18. Esta tabla se revisará al equilibrar el resto de pruebas.
+No alcanzar determinados niveles deja una puntuación baja. Para V0.1, la prueba usa una escala de 1 a 20, inspirada en un d20: fallar antes del primer acierto da 1; cada éxito permite avanzar un punto hasta 20. Superar los 20 niveles debe ser extraordinariamente raro.
 
 ## Clases
 
@@ -144,3 +142,5 @@ Se construirá de forma incremental:
 5. Conectar la ficha resultante con clases y, después, con la aventura.
 
 V0.1 empieza con Destreza: su prueba de indicador móvil es clara, rápida de probar y valida el flujo de creación de personaje.
+
+El flujo de V0.1 es: Nueva partida, nombre del personaje, elección de prueba y prueba de Destreza. Mientras solo exista una prueba, la pantalla de elección la mostrará como única opción disponible para conservar el flujo que usarán las demás.

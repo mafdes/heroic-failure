@@ -5,7 +5,7 @@ Este roadmap describe fases de trabajo, no decisiones ya cerradas. Los detalles 
 ## V0.1 — Fundación y primera prueba
 
 - Usar los cinco atributos definitivos: Fuerza, Destreza, Constitución, Inteligencia y Agilidad.
-- Definir la escala de puntuación y la rareza de los valores altos.
+- Usar una escala 1–20 inspirada en un d20; las puntuaciones altas deben ser extraordinarias.
 - Definir el primer minijuego: Destreza.
 - Crear el esqueleto HTML/CSS/JavaScript y la separación inicial de módulos.
 - Implementar el Canvas y el bucle básico del mini motor.
