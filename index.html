@@ -27,37 +27,60 @@
           <form id="name-form" class="menu-view name-form" hidden>
             <p class="chapter">Primero, el papeleo</p>
             <label for="player-name">¿Cómo se llama el aspirante?</label>
-            <input id="player-name" name="player-name" type="text" maxlength="24" autocomplete="off" placeholder="Nombre gloriosamente mediocre" required />
+            <div class="name-input-group">
+              <input id="player-name" name="player-name" type="text" maxlength="28" autocomplete="off" placeholder="Nombre gloriosamente mediocre" required />
+              <button id="random-name-btn" class="dice-button" type="button" title="Generar nombre pésimo" aria-label="Generar nombre aleatorio" onclick="event.preventDefault(); event.stopPropagation(); window.rollRandomName && window.rollRandomName(event); return false;">🎲</button>
+            </div>
             <button class="ornate-button" type="submit">Firmar la solicitud</button>
           </form>
           <div id="challenge-picker" class="menu-view" hidden>
             <p class="chapter">Examen de aptitud</p>
             <h2 id="welcome-name">El Estado necesita clasificarte.</h2>
             <button id="dexterity-choice" class="challenge-card" type="button">
-              <span class="card-icon">✦</span>
-              <span class="card-title">Destreza</span>
-              <span class="card-copy">Atina una zona móvil. Veinte niveles. Ninguna dignidad.</span>
+              <div class="card-header">
+                <span class="card-icon">✦</span>
+                <span class="card-title">Destreza</span>
+              </div>
+              <p class="card-copy">Atina una zona móvil. Veinte niveles. Ninguna dignidad.</p>
               <span class="card-action">Presentarse al examen →</span>
             </button>
             <button id="strength-choice" class="challenge-card" type="button">
-              <span class="card-icon">⚒</span>
-              <span class="card-title">Fuerza</span>
-              <span class="card-copy">Carga una pesa sin convertirte en una anécdota médica.</span>
+              <div class="card-header">
+                <span class="card-icon">⚒</span>
+                <span class="card-title">Fuerza</span>
+              </div>
+              <p class="card-copy">Carga una pesa sin convertirte en una anécdota médica.</p>
               <span class="card-action">Presentarse al examen →</span>
             </button>
             <button id="intelligence-choice" class="challenge-card" type="button">
-              <span class="card-icon">☾</span>
-              <span class="card-title">Inteligencia</span>
-              <span class="card-copy">Memoriza sellos antes de que el Estado los retire por seguridad.</span>
+              <div class="card-header">
+                <span class="card-icon">☾</span>
+                <span class="card-title">Inteligencia</span>
+              </div>
+              <p class="card-copy">Memoriza sellos antes de que el Estado los retire por seguridad.</p>
               <span class="card-action">Presentarse al examen →</span>
             </button>
-            <button id="constitution-choice" class="challenge-card" type="button"><span class="card-icon">♥</span><span class="card-title">Constitución</span><span class="card-copy">Mantén el pulso en su sitio durante el reconocimiento médico.</span><span class="card-action">Presentarse al examen →</span></button>
-            <button id="agility-choice" class="challenge-card" type="button"><span class="card-icon">↯</span><span class="card-title">Agilidad</span><span class="card-copy">Esquiva formularios antes de que ellos te esquiven a ti.</span><span class="card-action">Presentarse al examen →</span></button>
+            <button id="constitution-choice" class="challenge-card" type="button">
+              <div class="card-header">
+                <span class="card-icon">♥</span>
+                <span class="card-title">Constitución</span>
+              </div>
+              <p class="card-copy">Mantén el pulso en su sitio durante el reconocimiento médico.</p>
+              <span class="card-action">Presentarse al examen →</span>
+            </button>
+            <button id="agility-choice" class="challenge-card" type="button">
+              <div class="card-header">
+                <span class="card-icon">↯</span>
+                <span class="card-title">Agilidad</span>
+              </div>
+              <p class="card-copy">Esquiva formularios antes de que ellos te esquiven a ti.</p>
+              <span class="card-action">Presentarse al examen →</span>
+            </button>
             <p class="availability">Más exámenes llegarán cuando el ministerio encuentre presupuesto.</p>
           </div>
         </section>
       </section>
-      <p class="controls">En la prueba: espacio, clic o toque para detener el indicador.</p>
+      <p id="controls-hint" class="controls">Selecciona un examen de aptitud para clasificar a tu personaje.</p>
     </main>
     <script type="module" src="game/main.js"></script>
   </body>

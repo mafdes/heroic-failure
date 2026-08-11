@@ -21,9 +21,32 @@ const challenges = { dexterity, strength, intelligence, constitution, agility };
 let screen = "menu";
 let playerName = "";
 let activeChallenge = null;
+const controlsHint = document.querySelector("#controls-hint");
+const CHALLENGE_HINTS = {
+  dexterity: "Destreza: Pulsa ESPACIO, ENTER o TOCA la pantalla para detener el indicador.",
+  strength: "Fuerza: MANTÉN ESPACIO/CLIC o TOCA la pantalla para cargar y suelta en la zona.",
+  intelligence: "Inteligencia: TOCA la tarjeta correcta o usa las teclas 1, 2, 3.",
+  constitution: "Constitución: Usa las flechas ← → o TOCA los lados del área de juego.",
+  agility: "Agilidad: Usa las flechas ← → o TOCA un carril para esquivar los obstáculos."
+};
+
+function updateControlsHint() {
+  if (screen === "menu") {
+    controlsHint.textContent = "Selecciona un examen de aptitud para clasificar a tu personaje.";
+  } else if (activeChallenge) {
+    controlsHint.textContent = CHALLENGE_HINTS[activeChallenge.attributeId] || "";
+  }
+}
+
 const startMenu = new StartMenu({
-  onNameSubmitted: (name) => { playerName = name; startMenu.showSelection(name, sheet.attributes); },
-  onChallengeChosen: (id) => { activeChallenge = challenges[id]; activeChallenge.reset(); startMenu.hide(); screen = "challenge"; },
+  onNameSubmitted: (name) => { playerName = name; startMenu.showSelection(name, sheet.attributes); updateControlsHint(); },
+  onChallengeChosen: (id) => {
+    activeChallenge = challenges[id];
+    activeChallenge.reset();
+    startMenu.hide();
+    screen = "challenge";
+    updateControlsHint();
+  },
 });
 
 new GameLoop((delta) => {
@@ -32,8 +55,14 @@ new GameLoop((delta) => {
   const tap = input.consumeTap();
   const direction = input.consumeDirection();
   if (screen === "challenge") {
-    if (activeChallenge.status === "result" && pressed) { startMenu.show(playerName, sheet.attributes); screen = "menu"; return; }
+    if (activeChallenge.status === "result" && pressed) {
+      startMenu.show(playerName, sheet.attributes);
+      screen = "menu";
+      updateControlsHint();
+      return;
+    }
     activeChallenge.update(delta, pressed, input.held, input.consumeRelease(), choice, tap, direction);
     if (activeChallenge.status === "result") sheet.setAttribute(activeChallenge.attributeId, activeChallenge.score);
   }
 }, () => { if (screen === "challenge") activeChallenge.draw(context); }).start();
+
