@@ -10,6 +10,8 @@ canvas { width: 100%; height: auto; display: block; border: 6px solid #d3a658; i
 .game-frame { position: relative; }
 .menu-panel { position: absolute; inset: 6px; display: grid; place-items: center; padding: 2rem; background: radial-gradient(circle at 50% 20%, #3e2c42, #211d2a 65%); }
 .menu-view { width: min(620px, 100%); animation: rise-in .35s ease-out; }
+#challenge-picker { width: min(880px, 100%); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; align-items: stretch; }
+#challenge-picker > .chapter, #challenge-picker > h2, #challenge-picker > .availability { grid-column: 1 / -1; }
 .chapter { margin: 0 0 .75rem; color: #d3a658; font: 700 .75rem/1.2 Cinzel, serif; letter-spacing: .16em; text-transform: uppercase; }
 .menu-panel h2 { margin: 0 auto 2rem; max-width: 600px; font: 600 clamp(1.5rem, 3vw, 2.3rem)/1.35 Cinzel, serif; }
 .ornate-button { cursor: pointer; min-width: 240px; padding: 1rem 1.5rem; border: 2px solid #f3c46b; border-radius: 3px; color: #241725; background: linear-gradient(135deg, #f4cf7a, #a9683e); box-shadow: inset 0 0 0 3px #6d3d36, 0 7px 0 #4a2630; font: 800 1rem Cinzel, serif; letter-spacing: .08em; text-transform: uppercase; transition: transform .12s, filter .12s; }
@@ -19,7 +21,7 @@ canvas { width: 100%; height: auto; display: block; border: 6px solid #d3a658; i
 .name-form label { font: 600 clamp(1.2rem, 2.4vw, 1.8rem)/1.35 Cinzel, serif; }
 .name-form input { width: min(440px, 100%); padding: 1rem 1.15rem; border: 2px solid #d3a658; border-radius: 3px; outline: none; color: #f7ead0; background: #17131ce8; box-shadow: inset 0 0 18px #0008; font: 1.05rem Cinzel, serif; text-align: center; }
 .name-form input:focus { border-color: #f7ead0; box-shadow: 0 0 0 3px #d3a65866, inset 0 0 18px #0008; }
-.challenge-card { width: min(520px, 100%); display: grid; gap: .55rem; margin: .8rem auto; padding: 1.35rem 1.6rem; border: 1px solid #d3a658; border-radius: 7px; cursor: pointer; color: #f7ead0; background: linear-gradient(135deg, #4a3044, #282034); box-shadow: inset 0 0 0 3px #211d2a, 0 9px 25px #0007; text-align: left; transition: transform .16s, border-color .16s, background .16s; }
+.challenge-card { width: 100%; min-height: 250px; display: grid; align-content: start; gap: .55rem; margin: 0; padding: 1.35rem 1.6rem; border: 1px solid #d3a658; border-radius: 7px; cursor: pointer; color: #f7ead0; background: linear-gradient(135deg, #4a3044, #282034); box-shadow: inset 0 0 0 3px #211d2a, 0 9px 25px #0007; text-align: left; transition: transform .16s, border-color .16s, background .16s; }
 .challenge-card:disabled { cursor: default; opacity: .66; filter: saturate(.45); transform: none; }
 .challenge-card:disabled:hover { border-color: #d3a658; background: linear-gradient(135deg, #4a3044, #282034); }
 .challenge-card:hover, .challenge-card:focus-visible { border-color: #f7ead0; background: linear-gradient(135deg, #604054, #342540); outline: none; transform: translateY(-4px); }
@@ -31,4 +33,4 @@ canvas { width: 100%; height: auto; display: block; border: 6px solid #d3a658; i
 .availability { margin: 1.4rem 0 0; color: #bdb0b6; font: .74rem/1.5 Cinzel, serif; }
 .controls { margin: .8rem 0 0; color: #bdb0b6; font: .9rem/1.4 system-ui, sans-serif; }
 @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@media (max-width: 600px) { .menu-panel { padding: 1.25rem; } .challenge-card { padding: 1rem; } }
+@media (max-width: 600px) { .menu-panel { padding: 1.25rem; } #challenge-picker { grid-template-columns: 1fr; } .challenge-card { min-height: 0; padding: 1rem; } }
