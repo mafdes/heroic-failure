@@ -1,38 +1,144 @@
 import { CharacterSheet } from "../character/character-sheet.js";
-import { DexterityChallenge } from "../challenges/dexterity-challenge.js";
 import { GameLoop } from "../engine/game-loop.js";
 import { Input } from "../engine/input.js";
 import { StartMenu } from "../ui/start-menu.js";
-import { StrengthChallenge } from "../challenges/strength-challenge.js";
-import { IntelligenceChallenge } from "../challenges/intelligence-challenge.js";
-import { ConstitutionChallenge } from "../challenges/constitution-challenge.js";
-import { AgilityChallenge } from "../challenges/agility-challenge.js";
 import { getDefaultLanguage, getTexts, setLanguage } from "./i18n.js";
 import { DexterityScreen } from "../ui/dexterity-screen.js";
+import { ConstitutionScreen } from "../ui/constitution-screen.js";
+import { StrengthScreen } from "../ui/strength-screen.js";
+import { AgilityScreen } from "../ui/agility-screen.js";
+import { IntelligenceScreen } from "../ui/intelligence-screen.js";
+import { GuildReportScreen } from "../ui/guild-report.js";
 
 const canvas = document.querySelector("#game");
 const context = canvas.getContext("2d");
 const input = new Input(canvas);
 const sheet = new CharacterSheet();
-const dexterity = new DexterityChallenge();
-const strength = new StrengthChallenge();
-const intelligence = new IntelligenceChallenge();
-const constitution = new ConstitutionChallenge();
-const agility = new AgilityChallenge();
-const challenges = { dexterity, strength, intelligence, constitution, agility };
+
+function hideAllScreens() {
+  if (typeof startMenu !== "undefined") startMenu.hide();
+  guildReportScreen.hide();
+  dexterityScreen.hide();
+  constitutionScreen.hide();
+  strengthScreen.hide();
+  agilityScreen.hide();
+  intelligenceScreen.hide();
+}
+
+function openChallenge(id) {
+  hideAllScreens();
+
+  if (id === "dexterity") {
+    screen = "dexterity";
+    gameFrame.classList.add("dexterity-mode");
+    dexterityScreen.show();
+    updateControlsHint();
+    return;
+  }
+  if (id === "constitution") {
+    screen = "constitution";
+    gameFrame.classList.add("dexterity-mode");
+    constitutionScreen.show();
+    updateControlsHint();
+    return;
+  }
+  if (id === "strength") {
+    screen = "strength";
+    gameFrame.classList.add("dexterity-mode");
+    strengthScreen.show();
+    updateControlsHint();
+    return;
+  }
+  if (id === "agility") {
+    screen = "agility";
+    gameFrame.classList.add("dexterity-mode");
+    agilityScreen.show();
+    updateControlsHint();
+    return;
+  }
+  if (id === "intelligence") {
+    screen = "intelligence";
+    gameFrame.classList.add("dexterity-mode");
+    intelligenceScreen.show();
+    updateControlsHint();
+    return;
+  }
+
+  gameFrame.classList.remove("dexterity-mode");
+  screen = "challenge";
+  updateControlsHint();
+}
+
+function returnToReport() {
+  hideAllScreens();
+  gameFrame.classList.add("dexterity-mode");
+  screen = "report";
+  guildReportScreen.show(playerName, sheet.attributes);
+  updateControlsHint();
+}
+
+const guildReportScreen = new GuildReportScreen({
+  onChallengeChosen: (id) => {
+    openChallenge(id);
+  },
+  onChallengeSelected: (id) => {
+    openChallenge(id);
+  },
+  onClassRequested: () => {
+    alert("¡Enhorabuena! Has completado todas las pruebas del Gremio. El sistema de Clases llegará en la siguiente fase de desarrollo.");
+  },
+});
+
 const dexterityScreen = new DexterityScreen({
   onComplete: (score) => {
     sheet.setAttribute("dexterity", score);
-    startMenu.show(playerName, sheet.attributes);
-    screen = "menu";
-    updateControlsHint();
+    returnToReport();
   },
   onExit: () => {
-    startMenu.show(playerName, sheet.attributes);
-    screen = "menu";
-    updateControlsHint();
+    returnToReport();
   },
 });
+
+const constitutionScreen = new ConstitutionScreen({
+  onComplete: (score) => {
+    sheet.setAttribute("constitution", score);
+    returnToReport();
+  },
+  onExit: () => {
+    returnToReport();
+  },
+});
+
+const strengthScreen = new StrengthScreen({
+  onComplete: (score) => {
+    sheet.setAttribute("strength", score);
+    returnToReport();
+  },
+  onExit: () => {
+    returnToReport();
+  },
+});
+
+const agilityScreen = new AgilityScreen({
+  onComplete: (score) => {
+    sheet.setAttribute("agility", score);
+    returnToReport();
+  },
+  onExit: () => {
+    returnToReport();
+  },
+});
+
+const intelligenceScreen = new IntelligenceScreen({
+  onComplete: (score) => {
+    sheet.setAttribute("intelligence", score);
+    returnToReport();
+  },
+  onExit: () => {
+    returnToReport();
+  },
+});
+
 let screen = "menu";
 let playerName = "";
 let activeChallenge = null;
@@ -57,12 +163,7 @@ function resizeCanvas() {
 }
 
 function updateControlsHint() {
-  const texts = getTexts(language);
-  if (screen === "menu") {
-    controlsHint.textContent = texts.controlsMenu;
-  } else if (activeChallenge) {
-    controlsHint.textContent = texts.controls[activeChallenge.attributeId] || "";
-  }
+  controlsHint.hidden = true;
 }
 
 const startMenu = new StartMenu({
@@ -71,22 +172,12 @@ const startMenu = new StartMenu({
     language = setLanguage(nextLanguage);
     updateControlsHint();
   },
-  onNameSubmitted: (name) => { playerName = name; startMenu.showSelection(name, sheet.attributes); updateControlsHint(); },
+  onNameSubmitted: (name) => {
+    playerName = name;
+    returnToReport();
+  },
   onChallengeChosen: (id) => {
-    if (id === "dexterity") {
-      screen = "dexterity";
-      gameFrame.classList.add("dexterity-mode");
-      startMenu.hide();
-      dexterityScreen.show();
-      updateControlsHint();
-      return;
-    }
-    gameFrame.classList.remove("dexterity-mode");
-    activeChallenge = challenges[id];
-    activeChallenge.reset();
-    startMenu.hide();
-    screen = "challenge";
-    updateControlsHint();
+    openChallenge(id);
   },
 });
 
@@ -95,22 +186,6 @@ window.addEventListener("orientationchange", resizeCanvas);
 resizeCanvas();
 
 new GameLoop((delta) => {
-  const pressed = input.consumePress();
-  const choice = input.consumeChoice();
-  const tap = input.consumeTap();
-  const direction = input.consumeDirection();
-  if (screen === "dexterity") {
-    return;
-  }
-  if (screen === "challenge") {
-    if (activeChallenge.status === "result" && pressed) {
-      gameFrame.classList.remove("dexterity-mode");
-      startMenu.show(playerName, sheet.attributes);
-      screen = "menu";
-      updateControlsHint();
-      return;
-    }
-    activeChallenge.update(delta, pressed, input.held, input.consumeRelease(), choice, tap, direction);
-    if (activeChallenge.status === "result") sheet.setAttribute(activeChallenge.attributeId, activeChallenge.score);
-  }
-}, () => { if (screen === "challenge") activeChallenge.draw(context); }).start();
+  // All 5 challenges are now HTML screens.
+  return;
+}, () => {}).start();

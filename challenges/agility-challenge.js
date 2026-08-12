@@ -3,13 +3,13 @@ import { drawCountdown } from "../engine/countdown.js";
 const TOTAL_ROUNDS = 20;
 
 const heroImg = new Image();
-heroImg.src = "/Users/marcosfernandezsole/.gemini/antigravity/brain/7838775a-d166-423d-8e84-0d9aa8543429/medieval_hero_emblem_1786468900185.jpg";
+heroImg.src = "./assets/images/challenges/hero-emblem.jpg";
 
 const trapImg = new Image();
-trapImg.src = "/Users/marcosfernandezsole/.gemini/antigravity/brain/7838775a-d166-423d-8e84-0d9aa8543429/medieval_trap_rune_1786468914251.jpg";
+trapImg.src = "./assets/images/challenges/trap-rune.jpg";
 
 const coinImg = new Image();
-coinImg.src = "/Users/marcosfernandezsole/.gemini/antigravity/brain/7838775a-d166-423d-8e84-0d9aa8543429/medieval_gold_coin_1786468926839.jpg";
+coinImg.src = "./assets/images/challenges/gold-coin.jpg";
 
 function roundConfig(round) {
   const level = round + 1;

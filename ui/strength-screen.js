@@ -2,143 +2,146 @@ const TOTAL_ROUNDS = 20;
 
 function roundConfig(round) {
   const level = round + 1;
-  let zoneSize = 0.35;
-  let speed = 0.5;
-  let hasDecoy = false;
+  let zoneSize = 0.38;
+  let baseSpeed = 0.50;
+  let isErratic = false;
   let moveZone = false;
   let blink = false;
-  let hasSecondDecoy = false;
   let message = "";
 
   if (level === 1) {
-    zoneSize = 0.34;
-    speed = 0.55;
-    message = "Calentamiento administrativo.";
+    zoneSize = 0.38;
+    baseSpeed = 0.52;
+    message = "La pesa de hierro ordinario. Mantén pulsado y suelta en la zona.";
   } else if (level === 2) {
-    zoneSize = 0.24;
-    speed = 0.85;
-    message = "Prosiga con la solicitud del gremio.";
+    zoneSize = 0.26;
+    baseSpeed = 0.82;
+    message = "Aumentando el pesaje para el expediente del gremio.";
   } else if (level === 3) {
-    zoneSize = 0.17;
-    speed = 1.3;
-    hasDecoy = true;
-    message = "Nadie confía en su pulso.";
+    zoneSize = 0.16;
+    baseSpeed = 1.20;
+    isErratic = true;
+    message = "Pesaje con hierro encantado. Controle el impulso de carga.";
   } else if (level === 4) {
-    zoneSize = 0.12;
-    speed = 1.7;
-    hasDecoy = true;
+    zoneSize = 0.11;
+    baseSpeed = 1.60;
+    isErratic = true;
     moveZone = true;
-    message = "Mantenga la compostura.";
+    message = "Evaluación de resistencia física avanzada. La franja se mueve.";
   } else if (level === 5) {
-    zoneSize = 0.085;
-    speed = 2.15;
-    hasDecoy = true;
+    zoneSize = 0.075;
+    baseSpeed = 2.05;
+    isErratic = true;
     moveZone = true;
     blink = true;
-    message = "El formulario no admite dudas.";
+    message = "Tensión muscular extrema bajo supervisión de los Agentes.";
   } else {
     const extra = level - 5;
-    zoneSize = Math.max(0.015, 0.065 - extra * 0.007);
-    speed = 2.45 + extra * 0.28;
-    hasDecoy = true;
+    zoneSize = Math.max(0.015, 0.058 - extra * 0.006);
+    baseSpeed = 2.35 + extra * 0.26;
+    isErratic = true;
     moveZone = true;
     blink = true;
-    hasSecondDecoy = extra >= 2;
-    message = `Evaluación gremial — Nivel ${level}.`;
+    message = `Prueba de Titanes — Nivel ${level}.`;
   }
 
-  return { level, zoneSize, speed, hasDecoy, moveZone, blink, hasSecondDecoy, message };
+  return { level, zoneSize, baseSpeed, isErratic, moveZone, blink, message };
 }
 
 const TRANSITION_PHRASES = [
-  "Los examinadores del gremio no esperaban que siguieras entero.",
-  "Sorprendente. Un topo con resaca lo habría hecho peor, así que enhorabuena.",
-  "La mazmorra toma nota de tu ridículo margen de supervivencia.",
-  "Tu expediente acaba de ganar 2 miligramos de respeto administrativo.",
-  "El gremio solicita, con mucha educación, que no te vengas arriba.",
-  "Has superado el nivel por los pelos de un trasgo mal pagado.",
-  "Un logro remarcable para alguien con tu coordinación de cubo roto.",
-  "La mesa de admisiones consulta si esto fue habilidad o pura chiripa."
+  "El yunque real no se rompió, pero tus muñecas piden compasión.",
+  "Sorprendente. Un orco con lumbalgia habría doblado más el hierro.",
+  "El tribunal del gremio anota que tus bíceps han superado la prueba de milagro.",
+  "Tus fibras musculares acaban de ganar 2 gramos de dignidad administrativa.",
+  "El gremio aconseja no intentar levantar jarras de cerveza con tanto ímpetu.",
+  "Sobreviviste a la carga por los pelos de un enano minero.",
+  "Un esfuerzo remarcable para alguien con tu complexión de junco seco.",
+  "Los examinadores dudan si fue potencia física o pánico acumulado."
 ];
 
-function getDexterityVerdict(score) {
-  if (score <= 3) return "Dictamen del Tribunal: Pulso de borracho en terremoto. No le dejen ni sujetar una pluma real.";
-  if (score <= 6) return "Dictamen del Tribunal: Falta de coordinación alarmante. Sus manos tiemblan como hojas de sauce.";
-  if (score <= 10) return "Dictamen del Tribunal: Coordinación aceptable para tareas administrativas secundarias.";
-  if (score <= 15) return "Dictamen del Tribunal: Pulso sorprendentemente firme. El tribunal sospecha el uso de estimulantes de taberna.";
-  return "Dictamen del Tribunal: Destreza de cirujano de mazmorra. Se investigará si ha hecho trampas con magia negra.";
+function getStrengthVerdict(score) {
+  if (score <= 3) return "Dictamen del Tribunal: Brazos como fideos de taberna. El peso del formulario casi le quiebra la muñeca.";
+  if (score <= 6) return "Dictamen del Tribunal: Fuerza ridícula. La pesa del Nivel 4 ha opinado sobre sus músculos.";
+  if (score <= 10) return "Dictamen del Tribunal: Potencia bruta aceptable. Sirve para cargar sacos de carbón del gremio.";
+  if (score <= 15) return "Dictamen del Tribunal: ¡Titánico! El tribunal ha tenido que apartarse de la mesa.";
+  return "Dictamen del Tribunal: ¡Fuerza de Gigante! Ha levantado el gremio entero por los cimientos.";
 }
 
-export class DexterityScreen {
+export class StrengthScreen {
   constructor({ onComplete, onExit }) {
     this.onComplete = onComplete;
     this.onExit = onExit;
-    this.root = document.querySelector("#dexterity-screen");
-    this.chapter = document.querySelector("#dexterity-chapter");
-    this.title = document.querySelector("#dexterity-title");
-    this.message = document.querySelector("#dexterity-message");
-    this.instructions = document.querySelector("#dexterity-instructions");
-    this.rail = document.querySelector(".dexterity-rail");
-    this.footer = document.querySelector(".dexterity-footer");
-    this.zone = document.querySelector("#dexterity-zone");
-    this.decoy1 = document.querySelector("#dexterity-decoy-1");
-    this.decoy2 = document.querySelector("#dexterity-decoy-2");
-    this.cursor = document.querySelector("#dexterity-cursor");
-    this.level = document.querySelector("#dexterity-level");
-    this.score = document.querySelector("#dexterity-score");
-    this.backBtn = document.querySelector("#dexterity-back");
+    this.root = document.querySelector("#strength-screen");
+    this.chapter = document.querySelector("#strength-chapter");
+    this.title = document.querySelector("#strength-title");
+    this.message = document.querySelector("#strength-message");
+    this.instructions = document.querySelector("#strength-instructions");
+    this.rail = document.querySelector(".strength-rail");
+    this.footer = document.querySelector(".strength-footer");
+    this.zone = document.querySelector("#strength-zone");
+    this.chargeBar = document.querySelector("#strength-charge");
+    this.level = document.querySelector("#strength-level");
+    this.score = document.querySelector("#strength-score");
+    this.backBtn = document.querySelector("#strength-back");
+
     this.status = "intro";
     this.round = 0;
     this.scoreValue = 0;
-    this.position = 0;
-    this.direction = 1;
-    this.decoy1Position = 0.9;
-    this.decoy1Direction = -1;
-    this.decoy2Position = 0.1;
-    this.decoy2Direction = 1;
+    this.charge = 0;
     this.zoneCenter = 0.5;
     this.timeInRound = 0;
+    this.isHolding = false;
+    this.hasCharged = false;
     this.blinkTimer = 0;
-    this.isIndicatorVisible = true;
+    this.isChargeVisible = true;
     this.transitionTimer = 0;
     this.transitionPhrase = "";
     this.countdown = 3;
     this.lastCountdownNumber = 3;
     this.resultTime = 0;
-    this.boundHandleKey = (event) => this.handleKey(event);
-    this.boundHandlePointer = (event) => this.handlePointer(event);
-    if (this.backBtn) this.backBtn.addEventListener("click", () => this.exit());
+    this.lastTimestamp = null;
+    this.animFrame = null;
+
+    this.boundKeyDown = (e) => this.handleKeyDown(e);
+    this.boundKeyUp = (e) => this.handleKeyUp(e);
+    this.boundPointerDown = (e) => this.handlePointerDown(e);
+    this.boundPointerUp = (e) => this.handlePointerUp(e);
+
+    if (this.backBtn) {
+      this.backBtn.addEventListener("click", () => this.exit());
+    }
   }
 
   show() {
     this.root.hidden = false;
     this.reset();
-    window.addEventListener("keydown", this.boundHandleKey);
-    window.addEventListener("pointerdown", this.boundHandlePointer);
+    window.addEventListener("keydown", this.boundKeyDown);
+    window.addEventListener("keyup", this.boundKeyUp);
+    window.addEventListener("pointerdown", this.boundPointerDown);
+    window.addEventListener("pointerup", this.boundPointerUp);
     this.render();
   }
 
   hide() {
     this.root.hidden = true;
     if (this.animFrame) cancelAnimationFrame(this.animFrame);
-    window.removeEventListener("keydown", this.boundHandleKey);
-    window.removeEventListener("pointerdown", this.boundHandlePointer);
+    window.removeEventListener("keydown", this.boundKeyDown);
+    window.removeEventListener("keyup", this.boundKeyUp);
+    window.removeEventListener("pointerdown", this.boundPointerDown);
+    window.removeEventListener("pointerup", this.boundPointerUp);
   }
 
   reset() {
     if (this.animFrame) cancelAnimationFrame(this.animFrame);
     this.round = 0;
     this.scoreValue = 0;
-    this.position = 0;
-    this.direction = 1;
-    this.decoy1Position = 0.9;
-    this.decoy1Direction = -1;
-    this.decoy2Position = 0.1;
-    this.decoy2Direction = 1;
+    this.charge = 0;
     this.zoneCenter = 0.5;
     this.timeInRound = 0;
+    this.isHolding = false;
+    this.hasCharged = false;
     this.blinkTimer = 0;
-    this.isIndicatorVisible = true;
+    this.isChargeVisible = true;
     this.transitionTimer = 0;
     this.transitionPhrase = "";
     this.countdown = 3;
@@ -160,19 +163,42 @@ export class DexterityScreen {
     }
   }
 
-  handleKey(event) {
+  handleKeyDown(event) {
     if (event.code === "Space" || event.code === "Enter") {
       event.preventDefault();
-      this.handleAction();
+      if (!this.isHolding) {
+        this.isHolding = true;
+        this.handlePressStart();
+      }
     }
   }
 
-  handlePointer(event) {
-    if (this.backBtn && (event.target === this.backBtn || this.backBtn.contains(event.target))) return;
-    this.handleAction();
+  handleKeyUp(event) {
+    if (event.code === "Space" || event.code === "Enter") {
+      event.preventDefault();
+      if (this.isHolding) {
+        this.isHolding = false;
+        this.handlePressRelease();
+      }
+    }
   }
 
-  handleAction() {
+  handlePointerDown(event) {
+    if (this.backBtn && (event.target === this.backBtn || this.backBtn.contains(event.target))) return;
+    if (!this.isHolding) {
+      this.isHolding = true;
+      this.handlePressStart();
+    }
+  }
+
+  handlePointerUp() {
+    if (this.isHolding) {
+      this.isHolding = false;
+      this.handlePressRelease();
+    }
+  }
+
+  handlePressStart() {
     if (this.status === "intro") {
       this.status = "countdown";
       this.countdown = 3;
@@ -186,7 +212,16 @@ export class DexterityScreen {
       if (this.onComplete) this.onComplete(this.scoreValue);
       return;
     }
-    this.resolveRound(roundConfig(this.round));
+    if (this.status === "playing") {
+      this.hasCharged = true;
+    }
+  }
+
+  handlePressRelease() {
+    if (this.status === "playing" && this.hasCharged) {
+      const cfg = roundConfig(this.round);
+      this.resolveRound(cfg);
+    }
   }
 
   startCountdownLoop() {
@@ -198,7 +233,8 @@ export class DexterityScreen {
       if (this.countdown <= 0) {
         this.status = "playing";
         this.timeInRound = 0;
-        this.position = 0;
+        this.charge = 0;
+        this.hasCharged = false;
         this.lastTimestamp = performance.now();
         this.render();
         this.startPlayLoop();
@@ -217,42 +253,44 @@ export class DexterityScreen {
       const delta = Math.min((timestamp - (this.lastTimestamp || timestamp)) / 1000, 0.05);
       this.lastTimestamp = timestamp;
 
-      const cfg = roundConfig(this.round);
       this.timeInRound += delta;
-      this.position += this.direction * cfg.speed * delta;
-      if (this.position >= 1 || this.position <= 0) {
-        this.position = Math.max(0, Math.min(1, this.position));
-        this.direction *= -1;
-      }
+      const cfg = roundConfig(this.round);
+
       if (cfg.moveZone) {
-        const wave = Math.sin(this.timeInRound * (2.4 + this.round * 0.45));
-        const maxOffset = 0.38 - cfg.zoneSize / 2;
+        const wave = Math.sin(this.timeInRound * (2.2 + this.round * 0.35));
+        const maxOffset = 0.36 - cfg.zoneSize / 2;
         this.zoneCenter = 0.5 + wave * maxOffset;
       } else {
         this.zoneCenter = 0.5;
       }
-      if (cfg.hasDecoy) {
-        this.decoy1Position += this.decoy1Direction * (cfg.speed * 1.35 + 0.25) * delta;
-        if (this.decoy1Position >= 1 || this.decoy1Position <= 0) {
-          this.decoy1Position = Math.max(0, Math.min(1, this.decoy1Position));
-          this.decoy1Direction *= -1;
-        }
+
+      let currentSpeed = cfg.baseSpeed;
+      if (cfg.isErratic) {
+        const pulse = 1 + 0.65 * Math.sin(this.timeInRound * 8) + 0.3 * Math.cos(this.timeInRound * 14);
+        currentSpeed *= Math.max(0.2, pulse);
       }
-      if (cfg.hasSecondDecoy) {
-        this.decoy2Position += this.decoy2Direction * (cfg.speed * 0.85 + 0.45) * delta;
-        if (this.decoy2Position >= 1 || this.decoy2Position <= 0) {
-          this.decoy2Position = Math.max(0, Math.min(1, this.decoy2Position));
-          this.decoy2Direction *= -1;
-        }
+
+      if (this.isHolding) {
+        this.charge += currentSpeed * delta;
+        this.hasCharged = this.hasCharged || this.charge > 0.02;
       }
-      if (cfg.blink) {
+
+      if (this.charge >= 1) {
+        this.charge = 1;
+        this.status = "result";
+        this.resultTime = performance.now();
+        this.render();
+        return;
+      }
+
+      if (cfg.blink && this.isHolding) {
         this.blinkTimer += delta;
-        if (this.blinkTimer >= 0.18) {
+        if (this.blinkTimer >= 0.16) {
           this.blinkTimer = 0;
-          this.isIndicatorVisible = !this.isIndicatorVisible;
+          this.isChargeVisible = !this.isChargeVisible;
         }
       } else {
-        this.isIndicatorVisible = true;
+        this.isChargeVisible = true;
       }
 
       this.render();
@@ -264,14 +302,19 @@ export class DexterityScreen {
   resolveRound(cfg) {
     const zoneStart = this.zoneCenter - cfg.zoneSize / 2;
     const zoneEnd = this.zoneCenter + cfg.zoneSize / 2;
-    if (this.position < zoneStart || this.position > zoneEnd) {
+
+    if (this.charge < zoneStart || this.charge > zoneEnd) {
       this.status = "result";
       this.resultTime = performance.now();
       this.render();
       return;
     }
+
     this.round += 1;
     this.scoreValue = Math.min(TOTAL_ROUNDS, this.round + 1);
+    this.charge = 0;
+    this.hasCharged = false;
+
     if (this.round === TOTAL_ROUNDS) {
       this.status = "result";
       this.resultTime = performance.now();
@@ -294,7 +337,8 @@ export class DexterityScreen {
       if (this.transitionTimer <= 0) {
         this.status = "playing";
         this.timeInRound = 0;
-        this.position = 0;
+        this.charge = 0;
+        this.hasCharged = false;
         this.lastTimestamp = performance.now();
         this.render();
         this.startPlayLoop();
@@ -309,19 +353,22 @@ export class DexterityScreen {
   render() {
     const cfg = roundConfig(this.round);
     this.root.dataset.status = this.status;
-    this.chapter.textContent = "Prueba de destreza";
+    this.chapter.textContent = "Prueba de fuerza";
     this.title.textContent = this.status === "result"
-      ? `RESULTADO: DESTREZA ${this.scoreValue} / 20`
-      : `DESTREZA DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`;
+      ? `RESULTADO: FUERZA ${this.scoreValue} / 20`
+      : `FUERZA DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`;
+
     const isPrestart = this.status === "intro" || this.status === "countdown";
+
     if (this.status === "result") {
-      this.message.textContent = getDexterityVerdict(this.scoreValue);
+      this.message.textContent = getStrengthVerdict(this.scoreValue);
       this.instructions.textContent = "Pulsa ESPACIO, CLIC o TOCA para registrar tu nota en el expediente.";
     } else if (this.status === "level_transition") {
       this.message.textContent = `"${this.transitionPhrase}"`;
     } else {
       this.message.textContent = cfg.message;
     }
+
     if (this.status === "intro") {
       this.instructions.textContent = "Pulsa ESPACIO, CLIC o TOCA para empezar.";
     } else if (this.status === "countdown") {
@@ -343,8 +390,9 @@ export class DexterityScreen {
         this.instructions.classList.add("pulse");
       }
     } else if (this.status === "playing") {
-      this.instructions.textContent = "Pulsa ESPACIO, CLIC o TOCA para detener el indicador.";
+      this.instructions.textContent = "MANTÉN PULSADO para cargar y SUELTA en la zona objetivo.";
     }
+
     this.level.textContent = `Nivel ${cfg.level}`;
     this.score.textContent = `${this.scoreValue} / 20`;
     this.rail.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
@@ -353,23 +401,17 @@ export class DexterityScreen {
     this.level.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
     this.score.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
     this.zone.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
-    this.decoy1.hidden = isPrestart || !cfg.hasDecoy || this.status === "level_transition" || this.status === "result";
-    this.decoy2.hidden = isPrestart || !cfg.hasSecondDecoy || this.status === "level_transition" || this.status === "result";
-    this.cursor.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
+    this.chargeBar.hidden = isPrestart || this.status === "level_transition" || this.status === "result";
 
     if (!isPrestart && this.status !== "level_transition" && this.status !== "result") {
       const zoneStartPct = (this.zoneCenter - cfg.zoneSize / 2) * 100;
       const zoneWidthPct = cfg.zoneSize * 100;
-      const cursorPct = this.position * 100;
-      const decoy1Pct = this.decoy1Position * 100;
-      const decoy2Pct = this.decoy2Position * 100;
+      const chargePct = this.charge * 100;
 
       this.zone.style.left = `${zoneStartPct}%`;
       this.zone.style.width = `${zoneWidthPct}%`;
-      this.cursor.style.left = `calc(${cursorPct}% - 7px)`;
-      this.decoy1.style.left = `calc(${decoy1Pct}% - 6px)`;
-      this.decoy2.style.left = `calc(${decoy2Pct}% - 6px)`;
-      this.cursor.style.opacity = this.isIndicatorVisible ? "1" : "0.25";
+      this.chargeBar.style.width = `${chargePct}%`;
+      this.chargeBar.style.opacity = this.isChargeVisible ? "1" : "0.25";
     }
   }
 }

@@ -37,6 +37,131 @@
             <button id="dexterity-back" class="ornate-button ornate-secondary" type="button">Volver</button>
           </div>
         </section>
+        <section id="constitution-screen" class="constitution-screen" hidden aria-live="polite">
+          <div class="constitution-panel">
+            <p class="chapter" id="constitution-chapter">Prueba de constitución</p>
+            <h2 id="constitution-title">CONSTITUCIÓN DEL GREMIO — NIVEL 1 DE 20</h2>
+            <p id="constitution-message" class="constitution-message">Evaluación de pulso y resistencia vital del gremio.</p>
+            <p id="constitution-instructions" class="constitution-instructions">Pulsa ESPACIO, CLIC o TOCA para empezar.</p>
+            <div class="pulse-meter-wrapper">
+              <div class="pulse-meter">
+                <div id="pulse-zone" class="pulse-zone"></div>
+                <div id="pulse-needle" class="pulse-needle"></div>
+              </div>
+            </div>
+            <div class="constitution-timer-track">
+              <div id="constitution-timer-bar" class="constitution-timer-bar"></div>
+            </div>
+            <div class="constitution-footer">
+              <span id="constitution-level">Nivel 1</span>
+              <span id="constitution-score">0 / 20</span>
+            </div>
+            <button id="constitution-back" class="ornate-button ornate-secondary" type="button">Volver</button>
+          </div>
+        </section>
+        <section id="strength-screen" class="strength-screen" hidden aria-live="polite">
+          <div class="strength-panel">
+            <p class="chapter" id="strength-chapter">Prueba de fuerza</p>
+            <h2 id="strength-title">FUERZA DEL GREMIO — NIVEL 1 DE 20</h2>
+            <p id="strength-message" class="strength-message">La pesa de hierro ordinario. Mantén pulsado y suelta en la zona.</p>
+            <p id="strength-instructions" class="strength-instructions">Pulsa ESPACIO, CLIC o TOCA para empezar.</p>
+            <div class="strength-rail" hidden>
+              <div id="strength-zone" class="strength-zone"></div>
+              <div id="strength-charge" class="strength-charge"></div>
+            </div>
+            <div class="strength-footer" hidden>
+              <span id="strength-level">Nivel 1</span>
+              <span id="strength-score">0 / 20</span>
+            </div>
+            <button id="strength-back" class="ornate-button ornate-secondary" type="button" hidden>Volver</button>
+          </div>
+        </section>
+        <section id="agility-screen" class="agility-screen" hidden aria-live="polite">
+          <div class="agility-panel">
+            <p class="chapter" id="agility-chapter">Prueba de agilidad</p>
+            <h2 id="agility-title">AGILIDAD DEL GREMIO — NIVEL 1 DE 20</h2>
+            <p id="agility-message" class="agility-message">Los barriles del almacén ruedan hacia ti. Elige carril para esquivar.</p>
+            <p id="agility-instructions" class="agility-instructions">Pulsa ESPACIO, CLIC o TOCA para empezar.</p>
+            <div id="agility-arena" class="agility-arena">
+              <div id="agility-lane-0" class="agility-lane"><div class="lane-guide"></div></div>
+              <div id="agility-lane-1" class="agility-lane"><div class="lane-guide"></div></div>
+              <div id="agility-lane-2" class="agility-lane"><div class="lane-guide"></div></div>
+              <div id="agility-player" class="agility-player" data-lane="1">
+                <div class="agility-avatar-badge">
+                  <div class="agility-avatar-icon"></div>
+                </div>
+              </div>
+            </div>
+            <div id="agility-footer" class="agility-footer">
+              <span id="agility-level">Nivel 1</span>
+              <span id="agility-score">0 / 20</span>
+            </div>
+            <button id="agility-back" class="ornate-button ornate-secondary" type="button" hidden>Volver</button>
+          </div>
+        </section>
+        <section id="intelligence-screen" class="intelligence-screen" hidden aria-live="polite">
+          <div class="intelligence-panel">
+            <p class="chapter" id="intelligence-chapter">Prueba de inteligencia</p>
+            <h2 id="intelligence-title">INTELIGENCIA DEL GREMIO — NIVEL 1 DE 20</h2>
+            <p id="intelligence-message" class="intelligence-message">El archivista del gremio probará tu memoria arcana. Prepárate para sus trampas.</p>
+            <p id="intelligence-instructions" class="intelligence-instructions">Pulsa ESPACIO, CLIC o TOCA para empezar.</p>
+            <div id="intelligence-board" class="intelligence-board" hidden></div>
+            <div id="intelligence-footer" class="intelligence-footer" hidden>
+              <span id="intelligence-level">Nivel 1</span>
+              <span id="intelligence-score">0 / 20</span>
+            </div>
+            <button id="intelligence-back" class="ornate-button ornate-secondary" type="button" hidden>Volver</button>
+          </div>
+        </section>
+        <section id="guild-report-screen" class="guild-report-screen" hidden aria-live="polite">
+          <div class="parchment-container">
+            <header class="parchment-header">
+              <p class="parchment-sub">Gremio Real de Aventureros</p>
+              <h2 class="parchment-title">EXPEDIENTE DE ADMISIÓN</h2>
+              <p id="report-player-name" class="parchment-candidate">Aspirante: Sin Registro</p>
+            </header>
+            <div class="parchment-scores">
+              <div class="score-line" data-attribute="dexterity">
+                <span class="attr-title">1. Destreza</span>
+                <span class="attr-dots"></span>
+                <span class="attr-score" id="report-score-dexterity">PENDIENTE</span>
+                <button class="parchment-btn" data-challenge="dexterity" type="button">Examinar</button>
+              </div>
+              <div class="score-line" data-attribute="strength">
+                <span class="attr-title">2. Fuerza</span>
+                <span class="attr-dots"></span>
+                <span class="attr-score" id="report-score-strength">PENDIENTE</span>
+                <button class="parchment-btn" data-challenge="strength" type="button">Examinar</button>
+              </div>
+              <div class="score-line" data-attribute="constitution">
+                <span class="attr-title">3. Constitución</span>
+                <span class="attr-dots"></span>
+                <span class="attr-score" id="report-score-constitution">PENDIENTE</span>
+                <button class="parchment-btn" data-challenge="constitution" type="button">Examinar</button>
+              </div>
+              <div class="score-line" data-attribute="intelligence">
+                <span class="attr-title">4. Inteligencia</span>
+                <span class="attr-dots"></span>
+                <span class="attr-score" id="report-score-intelligence">PENDIENTE</span>
+                <button class="parchment-btn" data-challenge="intelligence" type="button">Examinar</button>
+              </div>
+              <div class="score-line" data-attribute="agility">
+                <span class="attr-title">5. Agilidad</span>
+                <span class="attr-dots"></span>
+                <span class="attr-score" id="report-score-agility">PENDIENTE</span>
+                <button class="parchment-btn" data-challenge="agility" type="button">Examinar</button>
+              </div>
+            </div>
+            <div class="parchment-verdict">
+              <p class="verdict-label">Dictamen del Tribunal de Admisión:</p>
+              <p id="report-verdict-text" class="verdict-text">Presente a su primera evaluación para que el gremio juzgue su ineptitud.</p>
+            </div>
+            <footer class="parchment-footer">
+              <p id="report-class-locked" class="report-class-locked">Complete las 5 pruebas del expediente para solicitar clase</p>
+              <button id="report-class-btn" class="ornate-button report-class-btn" type="button" hidden>Presentar solicitud de clase →</button>
+            </footer>
+          </div>
+        </section>
         <section id="start-menu" class="menu-panel" aria-live="polite">
           <div id="menu-home" class="menu-view">
             <p class="chapter">Convocatoria del gremio</p>
@@ -63,7 +188,9 @@
             <label for="player-name">¿Cómo se llama la futura decepción del gremio?</label>
             <div class="name-input-group">
               <input id="player-name" name="player-name" type="text" maxlength="28" autocomplete="off" placeholder="Nombre gloriosamente mediocre" required />
-              <button id="random-name-btn" class="dice-button" type="button" title="Generar nombre pésimo" aria-label="Generar nombre aleatorio" onclick="event.preventDefault(); event.stopPropagation(); window.rollRandomName && window.rollRandomName(event); return false;">🎲</button>
+              <button id="random-name-btn" class="dice-button" type="button" title="Generar nombre pésimo" aria-label="Generar nombre aleatorio" onclick="event.preventDefault(); event.stopPropagation(); window.rollRandomName && window.rollRandomName(event); return false;">
+                <img src="./assets/icons/dice.jpg" alt="Dado" class="dice-icon-img" />
+              </button>
             </div>
             <button class="ornate-button" type="submit">Presentar la solicitud</button>
           </form>
