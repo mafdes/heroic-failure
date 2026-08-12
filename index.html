@@ -119,6 +119,13 @@
               <p class="parchment-sub">Gremio Real de Aventureros</p>
               <h2 class="parchment-title">EXPEDIENTE DE ADMISIÓN</h2>
               <p id="report-player-name" class="parchment-candidate">Aspirante: Sin Registro</p>
+              <div id="report-sealed-badge" class="report-sealed-badge" hidden>
+                <div id="report-sealed-icon" class="report-sealed-icon"></div>
+                <div class="report-sealed-info">
+                  <span class="report-sealed-label">TÍTULO Y CLASE CONCEDIDA</span>
+                  <h3 id="report-sealed-title" class="report-sealed-title">Héroe del Gremio</h3>
+                </div>
+              </div>
             </header>
             <div class="parchment-scores">
               <div class="score-line" data-attribute="dexterity">
@@ -160,6 +167,51 @@
               <p id="report-class-locked" class="report-class-locked">Complete las 5 pruebas del expediente para solicitar clase</p>
               <button id="report-class-btn" class="ornate-button report-class-btn" type="button" hidden>Presentar solicitud de clase →</button>
             </footer>
+            <div class="test-fill-wrapper">
+              <button id="report-test-fill" class="test-fill-btn" type="button">⚡ Auto-rellenar Pruebas (DEV TEST)</button>
+            </div>
+          </div>
+        </section>
+        <section id="class-selection-screen" class="class-selection-screen" hidden aria-live="polite">
+          <div class="class-panel">
+            <p class="chapter" id="class-chapter">Elección de Clase</p>
+            <h2 id="class-title">Escalón I: Las Leyendas del Gremio</h2>
+            <p id="class-subtitle" class="class-subtitle">Clases reservadas para héroes de leyenda.</p>
+            <div id="class-grid" class="class-grid"></div>
+            <button id="class-giveup-btn" class="ornate-button ornate-secondary class-giveup-btn" type="button">Rendirse y mirar Clases Inferiores</button>
+          </div>
+
+          <!-- Custom Gothic Modal for Rejections and Confirmation -->
+          <div id="class-modal" class="class-modal" hidden>
+            <div class="class-modal-content">
+              <div id="class-modal-icon" class="class-modal-icon"></div>
+              <h3 id="class-modal-title" class="class-modal-title">Dictamen del Tribunal</h3>
+              <p id="class-modal-text" class="class-modal-text"></p>
+              <button id="class-modal-ok" class="ornate-button" type="button">Entendido</button>
+            </div>
+          </div>
+        </section>
+        <section id="coming-soon-screen" class="coming-soon-screen" hidden aria-live="polite">
+          <div class="coming-soon-panel">
+            <p class="chapter">Fase V0.3 — La Aventura 2D</p>
+            <h2 id="coming-soon-title">PRÓXIMAMENTE EN HEROIC FAILURE</h2>
+            <div id="coming-soon-badge" class="coming-soon-badge">
+              <div id="coming-soon-icon" class="coming-soon-icon"></div>
+              <div class="coming-soon-info">
+                <h3 id="coming-soon-name" class="coming-soon-name">Aspirante</h3>
+                <p id="coming-soon-class" class="coming-soon-class">Clase Oficial</p>
+              </div>
+            </div>
+            <p id="coming-soon-desc" class="coming-soon-desc">"Tu personaje ha quedado sellado en el registro del Gremio."</p>
+            <div class="coming-soon-preview-box">
+              <h4>🗺️ Lo que te aguarda en la Aventura 2D:</h4>
+              <ul>
+                <li><strong>Exploración 2D tipo Zelda:</strong> Muévete por mazmorras con colisiones, cofres y salas secretas.</li>
+                <li><strong>Comprobaciones de Atributos:</strong> Usa tu Fuerza para derribar puertas o tu Inteligencia para descifrar runas.</li>
+                <li><strong>Combate Satírico:</strong> Enfréntate a criaturas absurdas utilizando tu título de clase único.</li>
+              </ul>
+            </div>
+            <button id="coming-soon-menu-btn" class="ornate-button" type="button">Volver al Menú Principal</button>
           </div>
         </section>
         <section id="start-menu" class="menu-panel" aria-live="polite">

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c102b"/>
+      <stop offset="50%" stop-color="#3b1d4a"/>
+      <stop offset="100%" stop-color="#0e0717"/>
+    </linearGradient>
+    <linearGradient id="goldArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe58f"/>
+      <stop offset="40%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8a6d1c"/>
+    </linearGradient>
+    <linearGradient id="bladeGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0077ff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bgGrad)"/>
+
+  <!-- Mystic Aura Rings -->
+  <circle cx="200" cy="130" r="100" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.4"/>
+  <circle cx="200" cy="130" r="75" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Knight Shield Base -->
+  <path d="M 150,90 Q 200,60 250,90 L 250,170 Q 200,230 150,170 Z" fill="url(#goldArmor)" stroke="#ffffff" stroke-width="2" filter="url(#glow)"/>
+  <path d="M 160,98 Q 200,72 240,98 L 240,162 Q 200,215 160,162 Z" fill="#241433" opacity="0.95"/>
+
+  <!-- Shield Emblem (Cross / Lion Motif) -->
+  <path d="M 190,105 L 210,105 L 210,125 L 230,125 L 230,145 L 210,145 L 210,185 L 190,185 L 190,145 L 170,145 L 170,125 L 190,125 Z" fill="url(#goldArmor)"/>
+
+  <!-- Glowing Sword behind/in front -->
+  <polygon points="196,40 204,40 203,190 197,190" fill="url(#bladeGlow)" filter="url(#glow)"/>
+  <rect x="180" y="190" width="40" height="10" rx="3" fill="url(#goldArmor)"/>
+  <circle cx="200" cy="210" r="8" fill="url(#goldArmor)"/>
+
+  <!-- Sparkles -->
+  <circle cx="120" cy="80" r="2" fill="#00f0ff" filter="url(#glow)"/>
+  <circle cx="280" cy="100" r="3" fill="#ffe58f" filter="url(#glow)"/>
+  <circle cx="90" cy="200" r="2.5" fill="#ffe58f" filter="url(#glow)"/>
+  <circle cx="310" cy="220" r="2" fill="#00f0ff" filter="url(#glow)"/>
+</svg>

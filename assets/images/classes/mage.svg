@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mageBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1829"/>
+      <stop offset="50%" stop-color="#162c4a"/>
+      <stop offset="100%" stop-color="#050a14"/>
+    </linearGradient>
+    <radialGradient id="arcaneOrb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#bf00ff"/>
+      <stop offset="70%" stop-color="#6700b3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mageGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="300" fill="url(#mageBg)"/>
+
+  <!-- Arcane Pentagram Ring -->
+  <circle cx="200" cy="140" r="90" fill="none" stroke="#cf66ff" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.6" filter="url(#mageGlow)"/>
+  <polygon points="200,50 252,185 116,101 284,101 148,185" fill="none" stroke="#a100ff" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Archmage Floating Orb -->
+  <circle cx="200" cy="140" r="45" fill="url(#arcaneOrb)" filter="url(#mageGlow)"/>
+
+  <!-- Wizard Staff Silhouette -->
+  <path d="M 110,270 L 175,150" stroke="#d4af37" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="175" cy="150" r="12" fill="#d4af37" filter="url(#mageGlow)"/>
+
+  <!-- Floating Rune Particles -->
+  <circle cx="150" cy="90" r="3" fill="#cf66ff" filter="url(#mageGlow)"/>
+  <circle cx="250" cy="80" r="4" fill="#00ffff" filter="url(#mageGlow)"/>
+  <circle cx="260" cy="180" r="2.5" fill="#cf66ff" filter="url(#mageGlow)"/>
+  <circle cx="130" cy="200" r="3.5" fill="#00ffff" filter="url(#mageGlow)"/>
+</svg>

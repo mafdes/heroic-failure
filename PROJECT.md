@@ -1,146 +1,103 @@
-# Heroic Failure
+# Heroic Failure — Documentación del Proyecto
 
-## Concepto
+## 🎯 Visión del Juego
+Un RPG satírico donde el aspirante a héroe fracasa estrepitosamente en las pruebas de admisión del Gremio antes de ser asignado a clases absurdas.
 
-**Heroic Failure** es un RPG 2D satírico. Antes de empezar la aventura, el jugador no reparte puntos: debe demostrar mediante minijuegos qué clase de héroe (o de inútil) es.
+---
 
-El resultado de esas pruebas forma la ficha inicial del personaje. Con ella, el jugador intenta elegir una clase y juega después una aventura breve de estética y estructura cercanas a un *Zelda* clásico.
+## 🎨 Reglas de Estilo Visual y UI
+1. **Estrictamente Prohibido el uso de Emojis:** Todo elemento gráfico debe utilizar iconos SVG, assets vectoriales o ilustraciones reales.
+2. **Alto Contraste Obligatorio:** Texto oscuro sobre fondos pergamino o texto claro sobre losetas oscuras. Prohibido texto dorado sobre fondo amarillo.
+3. **Cartas RPG Coleccionables:** Plantillas estilo *Hearthstone* con imagen en 4:3, cabecera dorada y pergamino satírico.
+4. **Modal Gótica del Juego:** Cero `alert()` nativos del navegador.
 
-El fracaso no debe sentirse como una pantalla de error: debe abrir opciones cómicas y clases alternativas absurdas.
+---
 
-## Tono
+## 🖼️ Prompts de Ilustraciones para Cartas (Guardar en `assets/images/classes/`)
+- **Caballero Real (`knight.jpg`):** `Hearthstone style RPG card illustration of a noble knight standing in polished gold plate armor, holding a broadsword, heroic pose, dark castle background, detailed fantasy digital painting, 4:3 aspect ratio`
+- **Archimago Supremo (`mage.jpg`):** `Hearthstone style RPG card concept art of a powerful archmage in dark purple arcane robes, holding a crystal staff, summoning magic energy, 4:3 aspect ratio`
+- **Bárbaro (`barbarian.jpg`):** `Hearthstone style RPG card art of a fierce barbarian warrior with double-bitted axe in snowstorm, 4:3 aspect ratio`
+- **Pícaro (`rogue.jpg`):** `Hearthstone style RPG card concept art of a hooded rogue assassin emerging from shadows, twin daggers, 4:3 aspect ratio`
+- **Leproso Afortunado (`leper.jpg`):** `Hearthstone style humorous RPG card illustration of a lucky scruffy peasant covered in tattered bandages, comic fantasy art style, 4:3 aspect ratio`
 
-- Humor satírico, seco y autoconsciente.
-- Los mensajes deben reaccionar a los resultados del jugador, especialmente a los malos.
-- Una clase no disponible no termina la elección: deriva en alternativas ridículas con valor jugable y narrativo.
-- Ser excepcionalmente malo puede llegar a desbloquear clases especiales.
+El fracaso no es una pantalla de error; es la esencia del juego. Sacar notas nefastas desbloquea clases absurdas, veredictos satíricos y opciones narrativas únicas.
 
-## Atributos
+---
 
-Los atributos definitivos para V0.1 son:
+## 2. Reglas de Diseño e Interfaz (MANDATORIAS)
 
-1. Fuerza
-2. Destreza
-3. Constitución
-4. Inteligencia
-5. Agilidad
+### ⛔ PROHIBICIÓN ABSOLUTA DE EMOJIS
+- **NUNCA usar emojis unicode** (`🧙`, `🪣`, `🔮`, `📜`, `🔑`, `🧪`, `👑`, `💎`, `❤️❤️❤️`, etc.) en controles, botones ni gráficos del juego.
+- **Motivo:** Los emojis restan seriedad al apartado gráfico y se perciben como cutres.
+- **Estándar:** Toda la interfaz debe utilizar **componentes HTML/CSS vectoriales limpios**, SVGs estilizados o archivos de arte dedicados (`assets/images/...`).
 
-Carisma queda excluido: no añade suficiente a una aventura corta. Percepción tampoco forma parte del conjunto inicial; sus posibles usos quedan cubiertos por Inteligencia y Agilidad.
+### 🏛️ Tono y Burocracia del Gremio
+- Humor satírico, seco, burocrático y autoconsciente.
+- Los examinadores sabotean activamente al aspirante y se mofan de sus fallos.
+- **Sin repetición de pruebas (CRÍTICO):** Una vez evaluado un atributo, la nota queda registrada en la ficha (de 0 a 20), el botón del expediente muestra `COMPLETADO` y queda **deshabilitado permanentemente**. No hay segundas oportunidades.
+- **Nota 0 es una nota válida:** Si el aspirante cae en la primera ronda, saca `0 / 20` y la prueba cuenta como finalizada y registrada en el expediente.
+- **Protección contra saltos accidentales:** Cada pantalla de resultado incluye un cooldown de **600 ms** antes de aceptar clics o toques para volver al expediente.
 
-Destreza mide precisión, sincronización y control fino. Agilidad mide velocidad de movimiento, esquiva, sigilo y la capacidad de cruzar peligros rápidos.
+### 🎨 Estilo Visual y Componentes UI
+- **Mobile-First & Responsive:** Todas las pantallas usan posicionamiento adaptable (`position: absolute; inset: 0; display: grid; place-items: center`).
+- **Panel Gótico Glassmorphism:** Fondo gótico oscuro `rgba(22, 16, 28, 0.88)` con `backdrop-filter: blur(10px)` y borde dorado `rgba(211, 166, 88, 0.3)`.
+- **Tipografía:** Fuente *Cinzel* para títulos y números de cuenta atrás.
+- **Números Gigantes de Transición:** Durante `countdown` y `level_transition`, el número de la cuenta atrás utiliza `clamp(3.5rem, 12vw, 6.5rem)` con la animación de rebote `countdown-pop`.
+- **Pie de Pantalla Estandarizado:** Muestra `<span id="...-level">Nivel X</span>` e `<span id="...-score">X / 20</span>`.
 
-Ejemplo de ficha deseada:
+---
 
-```text
-FUERZA        13
-DESTREZA       4
-CONSTITUCIÓN   9
-INTELIGENCIA  12
-AGILIDAD       7
-```
+## 3. Las 5 Pruebas del Gremio
 
-## Pruebas de creación
+Las 5 pruebas están completamente integradas como módulos HTML/CSS dedicados:
 
-Cada atributo se obtiene en una prueba jugable; no se asignan puntos manualmente.
+### 🎯 1. Destreza (`DexterityScreen`)
+- **Mecánica:** Barra de precisión horizontal con indicador en movimiento constante.
+- **Objetivo:** Pulsa en el momento exacto en que el cursor cruce la zona dorada.
+- **Dificultad:** La zona dorada encoge, acelera, se desplaza por la barra y aparecen señuelos falsos en niveles altos.
 
-Las pruebas deben aumentar progresivamente de dificultad. Las puntuaciones altas deben ser poco frecuentes: obtener un valor de 18 debe ser extraordinario.
+### 🫀 2. Constitución (`ConstitutionScreen`)
+- **Mecánica:** Medidor de pulso / resistencia vertical.
+- **Objetivo:** Pulsa de forma rítmica para mantener la aguja de pulso dentro de la zona verde antes de que se agote el tiempo del temporizador.
+- **Dificultad:** La zona verde se desplaza, encoge y la aguja gana inercia resbaladiza.
 
-### Ejemplo: prueba de Destreza
+### 🏋️ 3. Fuerza (`StrengthScreen`)
+- **Mecánica:** Medidor de carga y soltado horizontal.
+- **Objetivo:** Mantén pulsado para cargar la barra de energía y **suelta exactamente** dentro de la zona dorada.
+- **Dificultad:** Carga ultra-rápida, zonas móviles y rebote de sobrecarga.
 
-Una barra horizontal contiene una zona de acierto y un indicador móvil. El jugador debe detenerlo dentro de la zona.
+### 🏃 4. Agilidad (`AgilityScreen`)
+- **Mecánica:** Almacén de barriles en 3 carriles verticales (Izquierda, Centro, Derecha). Toca un carril para moverte a él.
+- **Objetivo:** Esquiva las oleadas de barriles de roble que caen desde arriba.
+- **Dificultad:**
+  - *Desde Nivel 1:* Caída de 2 barriles simultáneos dejando un único carril seguro.
+  - *Niveles 6+:* **Barriles Drifting** que cambian de carril a mitad de caída (resplandor naranja pulsante).
+  - *1 solo impacto:* Fin inmediato de la prueba.
 
-- Nivel 1: zona amplia y fácil.
-- Desde el nivel 2: la ventana se encoge y el indicador acelera de forma agresiva.
-- Nivel 20: prácticamente absurdo.
+### 🧠 5. Inteligencia (`IntelligenceScreen`)
+- **Mecánica:** *"El Archivista Corrupto"* — Juego Simon Says con sabotajes deliberados en un mazo de 6 medallas con runas SVG (Sol, Luna, Estrella, Ojo, Gema, Corona) sin textos.
+- **Dificultad y Sabotajes:**
+  - *Nivel 1:* Memorización básica de 3 runas.
+  - *Nivel 2 (Putada 1):* **Trampas Rojas** (sellos rojos intercalados que NO deben pulsarse).
+  - *Nivel 3 (Putada 2):* **Mezcla (Shuffle)** (las medallas cambian de sitio en la pantalla tras la demostración).
+  - *Nivel 4 (Putada 3):* **Inversión** ("¡Repítela AL REVÉS!", del final al principio).
+  - *Nivel 5 (Putada 4):* **Cartas Boca Abajo (Blind)** (las baldosas se dan la vuelta y se tapan al llegar tu turno).
+  - *Niveles 6-20:* **Caos Supremo** combinando trampas rojas + mezcla + orden inverso + cartas boca abajo a velocidad máxima.
 
-No alcanzar determinados niveles deja una puntuación baja. Para V0.1, la prueba usa una escala de 1 a 20, inspirada en un d20: fallar antes del primer acierto da 1; cada éxito permite avanzar un punto hasta 20. Superar los 20 niveles debe ser extraordinariamente raro.
+---
 
-## Clases
+## 4. Estructura de Ficheros y Código
 
-Las clases normales tienen requisitos de atributos. Ejemplo:
-
-```text
-BÁRBARO
-FUERZA >= 14
-CONSTITUCIÓN >= 12
-```
-
-Si el jugador no cumple los requisitos, recibe una respuesta humorística y se le ofrecen alternativas, en lugar de un bloqueo sin salida.
-
-Ejemplo de alternativa:
-
-```text
-No puedes ser bárbaro.
-Vaya.
-No puedes ser bárbaro.
-Pero puedes ser campesino con lepra.
-```
-
-Pendiente definir:
-
-- Lista de clases normales.
-- Requisitos de cada clase.
-- Lista de clases absurdas y sus condiciones.
-- Clases desbloqueadas por resultados especialmente malos.
-- Efecto jugable de cada clase.
-
-## Aventura
-
-Tras crear el personaje, el jugador entra en una aventura 2D corta.
-
-Elementos previstos:
-
-- Mundo 2D sobre Canvas.
-- Movimiento.
-- Enemigos.
-- Cofres.
-- Puertas y llaves.
-- Puzles.
-- Comprobaciones de atributos durante la aventura.
-- Combate sencillo.
-- Entre 3 y 5 niveles aproximadamente.
-
-La duración objetivo es una partida corta. La historia, los niveles concretos, los enemigos y la forma precisa de combate aún no están definidos.
-
-## Tecnología y arquitectura
-
-- HTML, CSS y JavaScript puro.
-- Sin Unity, Godot ni framework inicial.
-- Canvas para el renderizado y un mini motor 2D propio.
-
-Estructura objetivo:
-
-```text
-engine/       # Bucle, Canvas, renderizado, entrada, colisiones y utilidades base.
-character/    # Ficha del personaje, atributos y clases.
-challenges/   # Minijuegos de creación de personaje.
-game/         # Aventura: estados, niveles, entidades y reglas jugables.
-ui/           # Pantallas, HUD, menús y diálogos.
-data/         # Datos declarativos del juego.
-```
-
-Datos previstos:
-
-```text
-data/
-  attributes.json
-  classes.json
-  enemies.json
-  levels.json
-  messages.json
-```
-
-El motor, la lógica RPG y los datos del juego deben mantenerse separados.
-
-## Enfoque de desarrollo
-
-Se construirá de forma incremental:
-
-1. Crear el esqueleto del proyecto.
-2. Implementar una única prueba de atributo y validarla jugablemente.
-4. Añadir las demás pruebas una a una.
-5. Conectar la ficha resultante con clases y, después, con la aventura.
-
-V0.1 empieza con Destreza: su prueba de indicador móvil es clara, rápida de probar y valida el flujo de creación de personaje.
-
-El flujo de V0.1 es: Nueva partida, nombre del personaje, elección de prueba y prueba de Destreza. Mientras solo exista una prueba, la pantalla de elección la mostrará como única opción disponible para conservar el flujo que usarán las demás.
+- `index.html`: Estructura principal con las 5 secciones de pruebas y el expediente de admisión.
+- `styles.css`: Sistema de diseño unificado, tokens visuales, animaciones (`countdown-pop`, `agility-player-shake`, `tile-shake`) y layouts responsive.
+- `game/main.js`: Orquestador principal, flujo entre menús, expediente y pantallas de pruebas.
+- `ui/`:
+  - `dexterity-screen.js`
+  - `constitution-screen.js`
+  - `strength-screen.js`
+  - `agility-screen.js`
+  - `intelligence-screen.js`
+  - `guild-report.js`
+  - `start-menu.js`
+- `assets/images/runes/`: Arte vectorial SVG para las 6 runas de inteligencia (`rune-sun.svg`, `rune-moon.svg`, `rune-star.svg`, `rune-eye.svg`, `rune-gem.svg`, `rune-crown.svg`).
+- `character/character-sheet.js`: Registro de los 5 atributos del personaje.

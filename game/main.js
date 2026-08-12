@@ -9,6 +9,8 @@ import { StrengthScreen } from "../ui/strength-screen.js";
 import { AgilityScreen } from "../ui/agility-screen.js";
 import { IntelligenceScreen } from "../ui/intelligence-screen.js";
 import { GuildReportScreen } from "../ui/guild-report.js";
+import { ClassSelectionScreen } from "../ui/class-selection-screen.js";
+import { ComingSoonScreen } from "../ui/coming-soon-screen.js";
 
 const canvas = document.querySelector("#game");
 const context = canvas.getContext("2d");
@@ -23,6 +25,8 @@ function hideAllScreens() {
   strengthScreen.hide();
   agilityScreen.hide();
   intelligenceScreen.hide();
+  classSelectionScreen.hide();
+  comingSoonScreen.hide();
 }
 
 function openChallenge(id) {
@@ -73,9 +77,28 @@ function returnToReport() {
   hideAllScreens();
   gameFrame.classList.add("dexterity-mode");
   screen = "report";
-  guildReportScreen.show(playerName, sheet.attributes);
+  guildReportScreen.show(playerName, sheet.attributes, sheet.characterClass);
   updateControlsHint();
 }
+
+const comingSoonScreen = new ComingSoonScreen({
+  onReturnToMenu: () => {
+    hideAllScreens();
+    screen = "menu";
+    startMenu.show();
+    updateControlsHint();
+  }
+});
+
+const classSelectionScreen = new ClassSelectionScreen({
+  onClassSelected: (cls) => {
+    sheet.characterClass = cls;
+    returnToReport();
+  },
+  onExit: () => {
+    returnToReport();
+  }
+});
 
 const guildReportScreen = new GuildReportScreen({
   onChallengeChosen: (id) => {
@@ -85,8 +108,27 @@ const guildReportScreen = new GuildReportScreen({
     openChallenge(id);
   },
   onClassRequested: () => {
-    alert("¡Enhorabuena! Has completado todas las pruebas del Gremio. El sistema de Clases llegará en la siguiente fase de desarrollo.");
+    hideAllScreens();
+    gameFrame.classList.add("dexterity-mode");
+    screen = "class-selection";
+    classSelectionScreen.show(playerName, sheet.attributes);
+    updateControlsHint();
   },
+  onAdventureRequested: () => {
+    hideAllScreens();
+    gameFrame.classList.add("dexterity-mode");
+    screen = "coming-soon";
+    comingSoonScreen.show(playerName, sheet.characterClass);
+    updateControlsHint();
+  },
+  onTestFillRequested: () => {
+    sheet.setAttribute("dexterity", Math.floor(Math.random() * 12) + 2);
+    sheet.setAttribute("strength", Math.floor(Math.random() * 12) + 2);
+    sheet.setAttribute("constitution", Math.floor(Math.random() * 12) + 2);
+    sheet.setAttribute("intelligence", Math.floor(Math.random() * 12) + 2);
+    sheet.setAttribute("agility", Math.floor(Math.random() * 12) + 2);
+    guildReportScreen.update(playerName, sheet.attributes, sheet.characterClass);
+  }
 });
 
 const dexterityScreen = new DexterityScreen({
@@ -186,6 +228,5 @@ window.addEventListener("orientationchange", resizeCanvas);
 resizeCanvas();
 
 new GameLoop((delta) => {
-  // All 5 challenges are now HTML screens.
   return;
 }, () => {}).start();
