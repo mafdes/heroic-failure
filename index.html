@@ -18,6 +18,25 @@
       </header>
       <section class="game-frame">
         <canvas id="game" width="960" height="540" aria-label="Examen del Gremio de Aventureros"></canvas>
+        <section id="dexterity-screen" class="dexterity-screen" hidden aria-live="polite">
+          <div class="dexterity-panel">
+            <p class="chapter" id="dexterity-chapter">Prueba de destreza</p>
+            <h2 id="dexterity-title">DESTREZA DEL GREMIO — NIVEL 1 DE 20</h2>
+            <p id="dexterity-message" class="dexterity-message">Calentamiento administrativo.</p>
+            <p id="dexterity-instructions" class="dexterity-instructions">Pulsa ESPACIO, CLIC o TOCA para empezar.</p>
+            <div class="dexterity-rail">
+              <div id="dexterity-zone" class="dexterity-zone"></div>
+              <div id="dexterity-decoy-1" class="dexterity-decoy dexterity-decoy-1"></div>
+              <div id="dexterity-decoy-2" class="dexterity-decoy dexterity-decoy-2" hidden></div>
+              <div id="dexterity-cursor" class="dexterity-cursor"></div>
+            </div>
+            <div class="dexterity-footer">
+              <span id="dexterity-level">Nivel 1</span>
+              <span id="dexterity-score">0 / 20</span>
+            </div>
+            <button id="dexterity-back" class="ornate-button ornate-secondary" type="button">Volver</button>
+          </div>
+        </section>
         <section id="start-menu" class="menu-panel" aria-live="polite">
           <div id="menu-home" class="menu-view">
             <p class="chapter">Convocatoria del gremio</p>

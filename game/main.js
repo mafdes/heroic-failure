@@ -8,6 +8,7 @@ import { IntelligenceChallenge } from "../challenges/intelligence-challenge.js";
 import { ConstitutionChallenge } from "../challenges/constitution-challenge.js";
 import { AgilityChallenge } from "../challenges/agility-challenge.js";
 import { getDefaultLanguage, getTexts, setLanguage } from "./i18n.js";
+import { DexterityScreen } from "../ui/dexterity-screen.js";
 
 const canvas = document.querySelector("#game");
 const context = canvas.getContext("2d");
@@ -19,6 +20,19 @@ const intelligence = new IntelligenceChallenge();
 const constitution = new ConstitutionChallenge();
 const agility = new AgilityChallenge();
 const challenges = { dexterity, strength, intelligence, constitution, agility };
+const dexterityScreen = new DexterityScreen({
+  onComplete: (score) => {
+    sheet.setAttribute("dexterity", score);
+    startMenu.show(playerName, sheet.attributes);
+    screen = "menu";
+    updateControlsHint();
+  },
+  onExit: () => {
+    startMenu.show(playerName, sheet.attributes);
+    screen = "menu";
+    updateControlsHint();
+  },
+});
 let screen = "menu";
 let playerName = "";
 let activeChallenge = null;
@@ -59,6 +73,15 @@ const startMenu = new StartMenu({
   },
   onNameSubmitted: (name) => { playerName = name; startMenu.showSelection(name, sheet.attributes); updateControlsHint(); },
   onChallengeChosen: (id) => {
+    if (id === "dexterity") {
+      screen = "dexterity";
+      gameFrame.classList.add("dexterity-mode");
+      startMenu.hide();
+      dexterityScreen.show();
+      updateControlsHint();
+      return;
+    }
+    gameFrame.classList.remove("dexterity-mode");
     activeChallenge = challenges[id];
     activeChallenge.reset();
     startMenu.hide();
@@ -76,8 +99,12 @@ new GameLoop((delta) => {
   const choice = input.consumeChoice();
   const tap = input.consumeTap();
   const direction = input.consumeDirection();
+  if (screen === "dexterity") {
+    return;
+  }
   if (screen === "challenge") {
     if (activeChallenge.status === "result" && pressed) {
+      gameFrame.classList.remove("dexterity-mode");
       startMenu.show(playerName, sheet.attributes);
       screen = "menu";
       updateControlsHint();
