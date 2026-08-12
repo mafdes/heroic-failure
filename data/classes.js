@@ -15,7 +15,6 @@ export const CLASS_TIERS = [
         requirements: { strength: 14, constitution: 13 },
         description: "Portador de armadura de plomo reluciente y defensor del honor administrativo.",
         rejection: "El Tribunal estampa el rechazo: 'Firmeza física insuficiente para soportar el peto de plomo sin doblarse por la cintura'.",
-        image: "assets/images/classes/knight.jpg",
         svg: `<svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l12 6v14c0 10-12 18-12 18S12 34 12 24V10l12-6z"/><path d="M24 12v16M16 20h16"/></svg>`
       },
       {
@@ -25,7 +24,6 @@ export const CLASS_TIERS = [
         requirements: { intelligence: 15 },
         description: "Dominador de las artes oscuras, del fuego estelar y de la memoria sin límites.",
         rejection: "El Tribunal estampa el rechazo: 'Cerebro con masa crítica insuficiente. Tropezó con el pergamino de bienvenida'.",
-        image: "assets/images/classes/mage.jpg",
         svg: `<svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l5 12 13 2-9 9 2 13-11-6-11 6 2-13-9-9 13-2 5-12z"/><circle cx="24" cy="24" r="5"/></svg>`
       },
       {
@@ -35,7 +33,6 @@ export const CLASS_TIERS = [
         requirements: { strength: 15, constitution: 14 },
         description: "Aplastador de rocas y devorador de jabalíes crudos en medio de la ventisca.",
         rejection: "El Tribunal estampa el rechazo: 'Espalda de juncos secos. El hacha de combate doble le partiría la columna al levantarla'.",
-        image: "assets/images/classes/dummy.jpg",
         svg: `<svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l32 32M40 8L8 40M24 14l10-6M24 34l10 6M14 24l-6 10M34 24l6 10"/></svg>`
       },
       {
@@ -45,7 +42,6 @@ export const CLASS_TIERS = [
         requirements: { dexterity: 14, agility: 14 },
         description: "Fantasma nocturno capaz de vaciar bolsillos ajenos sin alterar el aire.",
         rejection: "El Tribunal estampa el rechazo: 'Sigilo nulo. Sus botas chirrían sobre la alfombra del gremio como dos cerdos asustados'.",
-        image: "assets/images/classes/dummy.jpg",
         svg: `<svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l-14 20h28L24 4z"/><path d="M14 24l10 20 10-20"/><circle cx="24" cy="24" r="3"/></svg>`
       },
       {
@@ -55,7 +51,6 @@ export const CLASS_TIERS = [
         requirements: { strength: 13, constitution: 13, intelligence: 12 },
         description: "Faro de fe inviolable, devoción de hierro y sabiduría celestial.",
         rejection: "El Tribunal estampa el rechazo: 'La luz divina le ciega y se confunde de puerta al salir del confesionario'.",
-        image: "assets/images/classes/dummy.jpg",
         svg: `<svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4v38M10 18h28M6 42h36"/></svg>`
       }
     ]

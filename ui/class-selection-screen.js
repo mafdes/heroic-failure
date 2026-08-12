@@ -154,13 +154,17 @@ export class ClassSelectionScreen {
       card.className = `class-card ${isRejected ? "rejected" : ""}`;
       card.dataset.classId = cls.id;
 
+      const artContent = cls.image 
+        ? `<img src="${cls.image}" class="class-art-img" alt="${cls.name}" />`
+        : `<div class="class-art-emblem">${cls.svg}</div>`;
+
       card.innerHTML = `
         <div class="class-card-header">
           <div class="class-icon">${cls.svg}</div>
           <h3 class="class-name">${cls.name}</h3>
         </div>
         <div class="class-art-frame">
-          <img src="${imgPath}" class="class-art-img" alt="${cls.name}" />
+          ${artContent}
         </div>
         <p class="class-req">${cls.reqText}</p>
         <p class="class-desc">${cls.description}</p>
