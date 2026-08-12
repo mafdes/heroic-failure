@@ -252,11 +252,11 @@ export class AgilityChallenge {
     const cfg = roundConfig(this.round);
 
     // Cabecera sin solapamiento
-    this.title(ctx, `AGILIDAD — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 45);
+    this.title(ctx, `AGILIDAD DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 45);
     this.copy(ctx, cfg.message, 82, "#bdb0b6", 18);
     this.copy(ctx, `Trampas desvanecidas: ${this.clearedTraps} / ${cfg.trapsNeeded}`, 110, "#f7ead0", 18);
 
-    // Héroe central (Emblema de Caballero del Reino)
+    // Héroe central (Emblema del aspirante del gremio)
     if (heroImg.complete && heroImg.naturalWidth > 0) {
       ctx.save();
       ctx.beginPath();
@@ -356,8 +356,7 @@ export class AgilityChallenge {
     else verdict = "¡SOMBRA INALCANZABLE! El Rey no puede ni tocarte.";
 
     this.copy(ctx, verdict, 280, this.score >= 6 ? "#f3c46b" : "#f7ead0", 21);
-    this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas.", 390, "#bdb0b6", 20);
+    this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas del gremio.", 390, "#bdb0b6", 20);
   }
 }
-
 

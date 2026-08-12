@@ -24,7 +24,7 @@ function roundConfig(round) {
     numPairs = 4; // 8 cartas
     timeLimit = 12.0;
     shuffleOnMismatch = true;
-    message = "El registro se reorganiza tras cada fallo.";
+    message = "El archivo del gremio se reorganiza tras cada fallo.";
   } else if (level === 4) {
     numPairs = 5; // 10 cartas
     timeLimit = 13.0;
@@ -37,7 +37,7 @@ function roundConfig(round) {
     shuffleOnMismatch = true;
     moveCards = true;
     blink = true;
-    message = "Niebla Arcana en el registro del reino.";
+    message = "Niebla Arcana en el archivo del gremio.";
   } else {
     const extra = level - 5;
     numPairs = Math.min(8, 6 + Math.floor(extra / 3)); // hasta 16 cartas
@@ -257,7 +257,7 @@ export class IntelligenceChallenge {
     ctx.textAlign = "center";
 
     if (this.status === "intro") return this.drawIntro(ctx);
-    if (this.status === "countdown") return drawCountdown(ctx, this.timer, "Mezclando el mazo del registro...");
+    if (this.status === "countdown") return drawCountdown(ctx, this.timer, "Mezclando el mazo del gremio...");
     if (this.status === "result") return this.drawResult(ctx);
 
     this.drawGame(ctx);
@@ -277,7 +277,7 @@ export class IntelligenceChallenge {
 
   drawIntro(ctx) {
     this.title(ctx, "PRUEBA DE INTELIGENCIA", 135);
-    this.copy(ctx, "El Registro de Parejas Mágicas del Reino.", 215);
+    this.copy(ctx, "El Registro de Parejas Mágicas del Gremio.", 215);
     this.copy(ctx, "Toca las cartas boca abajo para emparejar todas las runas.", 265, "#d3a658");
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para empezar.", 370);
   }
@@ -285,7 +285,7 @@ export class IntelligenceChallenge {
   drawGame(ctx) {
     const cfg = roundConfig(this.round);
 
-    this.title(ctx, `INTELIGENCIA — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 95);
+    this.title(ctx, `INTELIGENCIA DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 95);
     this.copy(ctx, cfg.message, 145, "#bdb0b6");
 
     // Barra de tiempo
@@ -373,5 +373,4 @@ export class IntelligenceChallenge {
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas.", 395, "#bdb0b6");
   }
 }
-
 

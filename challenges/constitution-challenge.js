@@ -38,7 +38,7 @@ function roundConfig(round) {
     isErratic = true;
     moveZone = true;
     blink = true;
-    message = "Niebla médica en los monitores del Reino.";
+    message = "Niebla médica en los monitores del gremio.";
   } else {
     const extra = level - 5;
     zoneSize = Math.max(0.022, 0.075 - extra * 0.005);
@@ -187,7 +187,7 @@ export class ConstitutionChallenge {
 
   drawIntro(ctx) {
     this.title(ctx, "PRUEBA DE CONSTITUCIÓN", 130);
-    this.copy(ctx, "Evaluación de Pulso y Resistencia Vital del Reino.", 200, "#f7ead0", 22);
+    this.copy(ctx, "Evaluación de Pulso y Resistencia Vital del Gremio.", 200, "#f7ead0", 22);
     this.copy(ctx, "Haz CLIC o TOCA la pantalla para dar impulsos de pulso", 250, "#d3a658", 20);
     this.copy(ctx, "y mantener la aguja blanca dentro de la franja verde.", 280, "#d3a658", 20);
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para empezar.", 380, "#f7ead0", 22);
@@ -200,7 +200,7 @@ export class ConstitutionChallenge {
     const width = 100;
     const height = 250;
 
-    this.title(ctx, `CONSTITUCIÓN — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 90);
+    this.title(ctx, `CONSTITUCIÓN DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 90);
     this.copy(ctx, cfg.message, 128, "#bdb0b6", 19);
 
     // Medidor vertical de pulso
@@ -264,5 +264,4 @@ export class ConstitutionChallenge {
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas.", 390, "#bdb0b6", 20);
   }
 }
-
 

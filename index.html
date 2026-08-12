@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Heroic Failure, un RPG satírico de creación de personaje." />
-    <title>Heroic Failure — V0.1</title>
+    <meta name="description" content="Heroic Failure, un RPG satírico de examen del gremio de aventureros." />
+    <title>Heroic Failure — Examen del Gremio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=MedievalSharp&display=swap" rel="stylesheet" />
@@ -13,74 +13,89 @@
   <body>
     <main class="game-shell">
       <header class="masthead">
-        <p class="eyebrow">RPG de aptitudes cuestionables</p>
+        <p class="eyebrow">Examen satírico del gremio de aventureros</p>
         <h1>Heroic Failure</h1>
       </header>
       <section class="game-frame">
-        <canvas id="game" width="960" height="540" aria-label="Heroic Failure"></canvas>
+        <canvas id="game" width="960" height="540" aria-label="Examen del Gremio de Aventureros"></canvas>
         <section id="start-menu" class="menu-panel" aria-live="polite">
           <div id="menu-home" class="menu-view">
-            <p class="chapter">El registro de aspirantes</p>
-            <h2>¿Listo para decepcionar a tu linaje?</h2>
+            <p class="chapter">Convocatoria del gremio</p>
+            <h2>¿Listo para fingir que mereces entrar en una mazmorra?</h2>
             <button id="new-game" class="ornate-button" type="button">Nueva partida</button>
+            <button id="settings-btn" class="ornate-button ornate-secondary" type="button">Configuración</button>
+          </div>
+          <div id="settings-menu" class="menu-view settings-view" hidden>
+            <p class="chapter">Idioma del tablón</p>
+            <h2>Escoge cómo te insulta el gremio.</h2>
+            <div class="settings-label">Idioma</div>
+            <div class="language-grid" role="group" aria-label="Idioma">
+              <button class="language-pill" type="button" data-language="es">Castellano</button>
+              <button class="language-pill" type="button" data-language="ca">Català</button>
+              <button class="language-pill" type="button" data-language="en">English</button>
+            </div>
+            <div class="settings-actions">
+              <button id="settings-back-btn" class="ornate-button ornate-secondary" type="button">Volver</button>
+              <button id="settings-save-btn" class="ornate-button" type="button">Guardar</button>
+            </div>
           </div>
           <form id="name-form" class="menu-view name-form" hidden>
-            <p class="chapter">Primero, el papeleo</p>
-            <label for="player-name">¿Cómo se llama el aspirante?</label>
+            <p class="chapter">Registro del aspirante</p>
+            <label for="player-name">¿Cómo se llama la futura decepción del gremio?</label>
             <div class="name-input-group">
               <input id="player-name" name="player-name" type="text" maxlength="28" autocomplete="off" placeholder="Nombre gloriosamente mediocre" required />
               <button id="random-name-btn" class="dice-button" type="button" title="Generar nombre pésimo" aria-label="Generar nombre aleatorio" onclick="event.preventDefault(); event.stopPropagation(); window.rollRandomName && window.rollRandomName(event); return false;">🎲</button>
             </div>
-            <button class="ornate-button" type="submit">Firmar la solicitud</button>
+            <button class="ornate-button" type="submit">Presentar la solicitud</button>
           </form>
           <div id="challenge-picker" class="menu-view" hidden>
-            <p class="chapter">Examen de aptitud</p>
-            <h2 id="welcome-name">El Estado necesita clasificarte.</h2>
+            <p class="chapter">Pruebas de admisión</p>
+            <h2 id="welcome-name">El gremio necesita clasificarte antes de dejarte cerca de una mazmorra.</h2>
             <button id="dexterity-choice" class="challenge-card" type="button">
               <div class="card-header">
                 <span class="card-icon">✦</span>
                 <span class="card-title">Destreza</span>
               </div>
-              <p class="card-copy">Atina una zona móvil. Veinte niveles. Ninguna dignidad.</p>
-              <span class="card-action">Presentarse al examen →</span>
+              <p class="card-copy">Atina una zona móvil. Veinte niveles. La dignidad se descuenta aparte.</p>
+              <span class="card-action">Entrar en la prueba →</span>
             </button>
             <button id="strength-choice" class="challenge-card" type="button">
               <div class="card-header">
                 <span class="card-icon">⚒</span>
                 <span class="card-title">Fuerza</span>
               </div>
-              <p class="card-copy">Carga una pesa sin convertirte en una anécdota médica.</p>
-              <span class="card-action">Presentarse al examen →</span>
+              <p class="card-copy">Carga una pesa sin acabar en una camilla con escudo heráldico.</p>
+              <span class="card-action">Entrar en la prueba →</span>
             </button>
             <button id="intelligence-choice" class="challenge-card" type="button">
               <div class="card-header">
                 <span class="card-icon">☾</span>
                 <span class="card-title">Inteligencia</span>
               </div>
-              <p class="card-copy">Memoriza sellos antes de que el Estado los retire por seguridad.</p>
-              <span class="card-action">Presentarse al examen →</span>
+              <p class="card-copy">Memoriza sellos antes de que el gremio los declare demasiado peligrosos para ti.</p>
+              <span class="card-action">Entrar en la prueba →</span>
             </button>
             <button id="constitution-choice" class="challenge-card" type="button">
               <div class="card-header">
                 <span class="card-icon">♥</span>
                 <span class="card-title">Constitución</span>
               </div>
-              <p class="card-copy">Mantén el pulso en su sitio durante el reconocimiento médico.</p>
-              <span class="card-action">Presentarse al examen →</span>
+              <p class="card-copy">Mantén el pulso en su sitio durante el reconocimiento del gremio.</p>
+              <span class="card-action">Entrar en la prueba →</span>
             </button>
             <button id="agility-choice" class="challenge-card" type="button">
               <div class="card-header">
                 <span class="card-icon">↯</span>
                 <span class="card-title">Agilidad</span>
               </div>
-              <p class="card-copy">Esquiva formularios antes de que ellos te esquiven a ti.</p>
-              <span class="card-action">Presentarse al examen →</span>
+              <p class="card-copy">Esquiva trampas antes de que el suelo decida opinar.</p>
+              <span class="card-action">Entrar en la prueba →</span>
             </button>
-            <p class="availability">Más exámenes llegarán cuando el ministerio encuentre presupuesto.</p>
+            <p class="availability">Más pruebas llegarán cuando el gremio encuentre presupuesto y ganas.</p>
           </div>
         </section>
       </section>
-      <p id="controls-hint" class="controls">Selecciona un examen de aptitud para clasificar a tu personaje.</p>
+      <p id="controls-hint" class="controls">Selecciona una prueba del gremio para decidir si te dejan acercarte a una mazmorra.</p>
     </main>
     <script type="module" src="game/main.js"></script>
   </body>

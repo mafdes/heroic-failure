@@ -7,6 +7,7 @@ import { StrengthChallenge } from "../challenges/strength-challenge.js";
 import { IntelligenceChallenge } from "../challenges/intelligence-challenge.js";
 import { ConstitutionChallenge } from "../challenges/constitution-challenge.js";
 import { AgilityChallenge } from "../challenges/agility-challenge.js";
+import { getDefaultLanguage, getTexts, setLanguage } from "./i18n.js";
 
 const canvas = document.querySelector("#game");
 const context = canvas.getContext("2d");
@@ -21,24 +22,41 @@ const challenges = { dexterity, strength, intelligence, constitution, agility };
 let screen = "menu";
 let playerName = "";
 let activeChallenge = null;
+let language = setLanguage(getDefaultLanguage());
 const controlsHint = document.querySelector("#controls-hint");
-const CHALLENGE_HINTS = {
-  dexterity: "Destreza: Pulsa ESPACIO, ENTER o TOCA la pantalla para detener el indicador.",
-  strength: "Fuerza: MANTÉN ESPACIO/CLIC o TOCA la pantalla para cargar y suelta en la zona.",
-  intelligence: "Inteligencia: TOCA la tarjeta correcta o usa las teclas 1, 2, 3.",
-  constitution: "Constitución: Usa las flechas ← → o TOCA los lados del área de juego.",
-  agility: "Agilidad: Usa las flechas ← → o TOCA un carril para esquivar los obstáculos."
-};
+const gameShell = document.querySelector(".game-shell");
+const gameFrame = document.querySelector(".game-frame");
+
+function resizeCanvas() {
+  const frameRect = gameFrame.getBoundingClientRect();
+  const shellRect = gameShell.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const availableWidth = Math.max(320, frameRect.width);
+  const availableHeight = Math.max(240, Math.min(frameRect.height || frameRect.width * 9 / 16, window.innerHeight - shellRect.top - 24));
+  const targetWidth = Math.floor(availableWidth * dpr);
+  const targetHeight = Math.floor(availableHeight * dpr);
+  canvas.width = targetWidth;
+  canvas.height = targetHeight;
+  const scaleX = targetWidth / 960;
+  const scaleY = targetHeight / 540;
+  context.setTransform(scaleX, 0, 0, scaleY, 0, 0);
+}
 
 function updateControlsHint() {
+  const texts = getTexts(language);
   if (screen === "menu") {
-    controlsHint.textContent = "Selecciona un examen de aptitud para clasificar a tu personaje.";
+    controlsHint.textContent = texts.controlsMenu;
   } else if (activeChallenge) {
-    controlsHint.textContent = CHALLENGE_HINTS[activeChallenge.attributeId] || "";
+    controlsHint.textContent = texts.controls[activeChallenge.attributeId] || "";
   }
 }
 
 const startMenu = new StartMenu({
+  language,
+  onLanguageChange: (nextLanguage) => {
+    language = setLanguage(nextLanguage);
+    updateControlsHint();
+  },
   onNameSubmitted: (name) => { playerName = name; startMenu.showSelection(name, sheet.attributes); updateControlsHint(); },
   onChallengeChosen: (id) => {
     activeChallenge = challenges[id];
@@ -48,6 +66,10 @@ const startMenu = new StartMenu({
     updateControlsHint();
   },
 });
+
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("orientationchange", resizeCanvas);
+resizeCanvas();
 
 new GameLoop((delta) => {
   const pressed = input.consumePress();
@@ -65,4 +87,3 @@ new GameLoop((delta) => {
     if (activeChallenge.status === "result") sheet.setAttribute(activeChallenge.attributeId, activeChallenge.score);
   }
 }, () => { if (screen === "challenge") activeChallenge.draw(context); }).start();
-

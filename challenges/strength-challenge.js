@@ -18,7 +18,7 @@ function roundConfig(round) {
   } else if (level === 2) {
     zoneSize = 0.26;
     baseSpeed = 0.82;
-    message = "Aumentando el pesaje para el registro real.";
+    message = "Aumentando el pesaje para el expediente del gremio.";
   } else if (level === 3) {
     zoneSize = 0.16;
     baseSpeed = 1.20;
@@ -185,7 +185,7 @@ export class StrengthChallenge {
 
   drawIntro(ctx) {
     this.title(ctx, "PRUEBA DE FUERZA", 135);
-    this.copy(ctx, "Demuestra a los Agentes del Reino tu capacidad muscular.", 215);
+    this.copy(ctx, "Demuestra al gremio que tus músculos son algo más que rumor de taberna.", 215);
     this.copy(ctx, "Carga la pesa y suéltala exactamente en la franja objetivo.", 265, "#d3a658");
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para empezar.", 370);
   }
@@ -207,7 +207,7 @@ export class StrengthChallenge {
     const width = 740;
     const height = 46;
 
-    this.title(ctx, `FUERZA — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 115);
+    this.title(ctx, `FUERZA DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 115);
     this.copy(ctx, cfg.message, 175, "#bdb0b6");
 
     // Contenedor / Rail de carga
@@ -236,7 +236,7 @@ export class StrengthChallenge {
     }
 
     // Leyenda de control
-    this.copy(ctx, "MANTÉN PULSADO Y SUELTA EN LA FRANJA OBJETIVO", 410, "#f7ead0");
+    this.copy(ctx, "MANTÉN PULSADO Y SUELTA EN LA FRANJA OBJETIVO DEL GREMIO", 410, "#f7ead0");
   }
 
   drawResult(ctx) {
@@ -249,11 +249,10 @@ export class StrengthChallenge {
     if (this.score <= 2) verdict = "Tus brazos son como fideos de la taberna real.";
     else if (this.score <= 4) verdict = "Patético. El hierro del Nivel 3 te ha aplastado.";
     else if (this.score === 5) verdict = "¡A un suspiro de la gloria! El temblor muscular te ha vencido.";
-    else if (this.score <= 9) verdict = "¡TITÁNICO! Los Agentes del Reino contemplan tu fuerza.";
+    else if (this.score <= 9) verdict = "¡TITÁNICO! El gremio contempla tu fuerza con preocupación.";
     else verdict = "¡LEYENDA DE LA MAZMORRA! Has levantado el castillo entero.";
 
     this.copy(ctx, verdict, 290, this.score >= 6 ? "#f3c46b" : "#f7ead0");
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas.", 395, "#bdb0b6");
   }
 }
-

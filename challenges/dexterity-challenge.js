@@ -19,7 +19,7 @@ function roundConfig(round) {
   } else if (level === 2) {
     zoneSize = 0.24;
     speed = 0.85;
-    message = "Prosiga con la solicitud.";
+    message = "Prosiga con la solicitud del gremio.";
   } else if (level === 3) {
     zoneSize = 0.17;
     speed = 1.30;
@@ -46,21 +46,21 @@ function roundConfig(round) {
     moveZone = true;
     blink = true;
     hasSecondDecoy = extra >= 2;
-    message = `Evaluación de aptitud — Nivel ${level}.`;
+    message = `Evaluación gremial — Nivel ${level}.`;
   }
 
   return { level, zoneSize, speed, hasDecoy, moveZone, blink, hasSecondDecoy, message };
 }
 
 const TRANSITION_PHRASES = [
-  "Los Agentes del Reino no esperaban que sobrevivieras a esto.",
-  "Sorprendente. Un topo ciego lo habría hecho peor, así que enhorabuena.",
-  "El Lord Maestro de la Mazmorra anota tu suerte en el acta.",
-  "Tu expediente acaba de ganar 2 miligramos de respeto oficial.",
-  "El Gremio de Evaluadores solicita que no te confíes.",
-  "Has superado el nivel por los pelos de un trasgo.",
-  "Un logro remarcable para alguien con tu coordinación.",
-  "El Tribunal Real consulta si esto ha sido pura chiripa."
+  "Los examinadores del gremio no esperaban que siguieras entero.",
+  "Sorprendente. Un topo con resaca lo habría hecho peor, así que enhorabuena.",
+  "La mazmorra toma nota de tu ridículo margen de supervivencia.",
+  "Tu expediente acaba de ganar 2 miligramos de respeto administrativo.",
+  "El gremio solicita, con mucha educación, que no te vengas arriba.",
+  "Has superado el nivel por los pelos de un trasgo mal pagado.",
+  "Un logro remarcable para alguien con tu coordinación de cubo roto.",
+  "La mesa de admisiones consulta si esto fue habilidad o pura chiripa."
 ];
 
 export class DexterityChallenge {
@@ -222,8 +222,8 @@ export class DexterityChallenge {
 
   drawIntro(ctx) {
     this.title(ctx, "PRUEBA DE DESTREZA", 135);
-    this.copy(ctx, "20 niveles. Una barra dorada. Cero garantías.", 215);
-    this.copy(ctx, "El ministerio no notificará los cambios de normativa.", 265, "#d3a658");
+    this.copy(ctx, "20 niveles. Una barra dorada. Cero garantías de ingreso.", 215);
+    this.copy(ctx, "El gremio no notificará los cambios de normativa ni pedirá perdón.", 265, "#d3a658");
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para empezar.", 370);
   }
 
@@ -238,7 +238,7 @@ export class DexterityChallenge {
     const width = 740;
     const height = 46;
 
-    this.title(ctx, `DESTREZA — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 115);
+    this.title(ctx, `DESTREZA DEL GREMIO — NIVEL ${cfg.level} DE ${TOTAL_ROUNDS}`, 115);
     this.copy(ctx, cfg.message, 175, "#bdb0b6");
 
     // Track principal
@@ -279,7 +279,7 @@ export class DexterityChallenge {
     }
 
     // Leyenda inferior totalmente neutra
-    this.copy(ctx, "ESPACIO / CLIC / TOQUE: Detener el indicador", 410, "#f7ead0");
+    this.copy(ctx, "ESPACIO / CLIC / TOQUE: Detener el indicador antes de hacer el ridículo", 410, "#f7ead0");
   }
 
   drawResult(ctx) {
@@ -299,5 +299,4 @@ export class DexterityChallenge {
     this.copy(ctx, "Pulsa ESPACIO, CLIC o TOCA para volver a las pruebas.", 395, "#bdb0b6");
   }
 }
-
 
