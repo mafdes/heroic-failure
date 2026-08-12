@@ -13,7 +13,8 @@ Un RPG satírico donde el aspirante a héroe fracasa estrepitosamente en las pru
 
 ---
 
-## 🖼️ Prompts de Ilustraciones para Cartas (Guardar en `assets/images/classes/`)
+## 🖼️ Prompts e Ilustraciones para Cartas (Guardar en `assets/images/classes/`)
+- **Fuentes Recomendadas:** [OpenGameArt.org](https://opengameart.org) (Arte 2D RPG) e [Itch.io Fantasy Assets](https://itch.io/game-assets/free/tag-fantasy) (Packs de retratos de cartas RPG). (Unsplash NO sirve por ser fotografía de stock real).
 - **Caballero Real (`knight.jpg`):** `Hearthstone style RPG card illustration of a noble knight standing in polished gold plate armor, holding a broadsword, heroic pose, dark castle background, detailed fantasy digital painting, 4:3 aspect ratio`
 - **Archimago Supremo (`mage.jpg`):** `Hearthstone style RPG card concept art of a powerful archmage in dark purple arcane robes, holding a crystal staff, summoning magic energy, 4:3 aspect ratio`
 - **Bárbaro (`barbarian.jpg`):** `Hearthstone style RPG card art of a fierce barbarian warrior with double-bitted axe in snowstorm, 4:3 aspect ratio`
