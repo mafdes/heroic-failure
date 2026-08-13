@@ -113,7 +113,6 @@ export class StartMenu {
     document.querySelector("#constitution-choice .card-copy").textContent = texts.constitutionCopy;
     document.querySelector("#agility-choice .card-copy").textContent = texts.agilityCopy;
     document.querySelector(".availability").textContent = texts.availability;
-    document.querySelector("#controls-hint").textContent = texts.controlsMenu;
     if (this.lastAttributes && this.lastSelectedName) {
       this.showSelection(this.lastSelectedName, this.lastAttributes);
     } else {

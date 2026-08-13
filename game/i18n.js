@@ -27,7 +27,6 @@ const TEXTS = {
     enterTrial: "Entrar en la prueba →",
     resultLabel: (score) => `Resultado gremial: ${score} / 20 ✓`,
     availability: "Más pruebas llegarán cuando el gremio encuentre presupuesto y ganas.",
-    controlsMenu: "Selecciona una prueba del gremio para decidir si te dejan entrar en la mazmorra.",
     attributeNames: {
       strength: "Fuerza",
       dexterity: "Destreza",
@@ -69,7 +68,6 @@ const TEXTS = {
     enterTrial: "Entrar a la prova →",
     resultLabel: (score) => `Resultat gremial: ${score} / 20 ✓`,
     availability: "Més proves arribaran quan el gremi trobi pressupost i ganes.",
-    controlsMenu: "Selecciona una prova del gremi per decidir si et deixen entrar a la masmorra.",
     attributeNames: {
       strength: "Força",
       dexterity: "Destresa",
@@ -111,7 +109,6 @@ const TEXTS = {
     enterTrial: "Enter trial →",
     resultLabel: (score) => `Guild result: ${score} / 20 ✓`,
     availability: "More trials will arrive once the guild finds budget and motivation.",
-    controlsMenu: "Pick a guild trial to decide whether they let you into the dungeon.",
     attributeNames: {
       strength: "Strength",
       dexterity: "Dexterity",

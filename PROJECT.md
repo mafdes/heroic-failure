@@ -10,6 +10,8 @@ Un RPG satírico donde el aspirante a héroe fracasa estrepitosamente en las pru
 2. **Alto Contraste Obligatorio:** Texto oscuro sobre fondos pergamino o texto claro sobre losetas oscuras. Prohibido texto dorado sobre fondo amarillo.
 3. **Cartas RPG Coleccionables:** Plantillas estilo *Hearthstone* con imagen en 4:3, cabecera dorada y pergamino satírico.
 4. **Modal Gótica del Juego:** Cero `alert()` nativos del navegador.
+5. **Unidad de Escenario:** El juego ocurre dentro del Gremio. Cada prueba es una sala distinta, pero menú, expediente, clase y pruebas comparten marco, overlay, sombras y lenguaje de paneles. Ver `docs/VISUAL_GUIDE.md`.
+6. **Precarga de Assets:** Los fondos, pergaminos, runas e iconos críticos se cargan antes de abrir el menú inicial desde `engine/asset-loader.js`.
 
 ---
 
@@ -92,6 +94,8 @@ Las 5 pruebas están completamente integradas como módulos HTML/CSS dedicados:
 - `index.html`: Estructura principal con las 5 secciones de pruebas y el expediente de admisión.
 - `styles.css`: Sistema de diseño unificado, tokens visuales, animaciones (`countdown-pop`, `agility-player-shake`, `tile-shake`) y layouts responsive.
 - `game/main.js`: Orquestador principal, flujo entre menús, expediente y pantallas de pruebas.
+- `engine/asset-loader.js`: Precarga inicial de fondos, pergamino, runas e iconos visibles para evitar cambios de sala con assets sin preparar.
+- `docs/VISUAL_GUIDE.md`: Guía de dirección visual para mantener el concepto de gremio + salas de examen.
 - `ui/`:
   - `dexterity-screen.js`
   - `constitution-screen.js`

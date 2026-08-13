@@ -10,13 +10,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=MedievalSharp&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="app-loading">
     <main class="game-shell">
       <header class="masthead">
         <p class="eyebrow">Examen satírico del gremio de aventureros</p>
         <h1>Heroic Failure</h1>
       </header>
       <section class="game-frame">
+        <section id="loading-screen" class="loading-screen" aria-live="polite">
+          <div class="loading-panel">
+            <p class="chapter">Preparativos del gremio</p>
+            <h2>Cargando salas de examen</h2>
+            <div class="loading-meter" aria-hidden="true">
+              <div id="loading-bar" class="loading-bar"></div>
+            </div>
+            <p id="loading-text" class="loading-text">Inventariando assets...</p>
+          </div>
+        </section>
         <canvas id="game" width="960" height="540" aria-label="Examen del Gremio de Aventureros"></canvas>
         <section id="dexterity-screen" class="dexterity-screen" hidden aria-live="polite">
           <div class="dexterity-panel">
@@ -293,7 +303,6 @@
           </div>
         </section>
       </section>
-      <p id="controls-hint" class="controls">Selecciona una prueba del gremio para decidir si te dejan acercarte a una mazmorra.</p>
     </main>
     <script type="module" src="game/main.js"></script>
   </body>

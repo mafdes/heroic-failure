@@ -7,6 +7,15 @@
   --frame-radius: 12px;
   --panel-pad: 1rem;
   --title-size: clamp(1.45rem, 5.2vw, 2.8rem);
+  --guild-ink: #120f17;
+  --guild-panel: rgba(22, 16, 28, 0.9);
+  --guild-panel-strong: rgba(22, 16, 28, 0.96);
+  --guild-gold: #d3a658;
+  --guild-gold-bright: #f3c46b;
+  --guild-text: #f7ead0;
+  --guild-muted: #d4c5cf;
+  --guild-border: rgba(211, 166, 88, 0.35);
+  --guild-shadow: 0 16px 48px rgba(0, 0, 0, 0.85);
 }
 
 * {
@@ -23,6 +32,14 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+/* Evita selección accidental en móvil dentro del juego, pero mantiene los inputs editables. */
+.game-shell,
+.game-shell *:not(input):not(textarea):not([contenteditable="true"]) {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body {
@@ -81,6 +98,37 @@ h1 {
   border-radius: 12px;
   background: transparent;
   overflow: hidden;
+  touch-action: manipulation;
+  isolation: isolate;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(211, 166, 88, 0.16);
+}
+
+.game-frame::before,
+.game-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.game-frame::before {
+  background:
+    linear-gradient(180deg, rgba(18, 12, 22, 0.62), rgba(10, 7, 13, 0.82)),
+    url("./assets/images/challenges/intelligence-bg.jpg") center/cover no-repeat;
+  filter: saturate(0.82) brightness(0.78);
+  transform: scale(1.02);
+}
+
+.game-frame::after {
+  background:
+    radial-gradient(circle at 50% 42%, transparent 0 38%, rgba(8, 5, 10, 0.58) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.38), transparent 18% 82%, rgba(0, 0, 0, 0.38));
+}
+
+.game-frame > * {
+  position: relative;
+  z-index: 1;
 }
 
 .game-frame > * {
@@ -1556,6 +1604,177 @@ h1 {
   line-height: 1.5;
 }
 
+.loading-screen[hidden] {
+  display: none !important;
+}
+
+.loading-screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background:
+    linear-gradient(180deg, rgba(18, 12, 22, 0.38), rgba(8, 5, 10, 0.72)),
+    url("./assets/images/challenges/intelligence-bg.jpg") center/cover no-repeat;
+  z-index: 30;
+}
+
+.loading-panel {
+  width: min(520px, 94%);
+  display: grid;
+  gap: 0.85rem;
+  justify-items: center;
+  padding: 1.2rem;
+  border: 1px solid var(--guild-border);
+  border-radius: 10px;
+  background: var(--guild-panel-strong);
+  box-shadow: var(--guild-shadow), inset 0 0 70px rgba(211, 166, 88, 0.08);
+  text-align: center;
+}
+
+.loading-panel h2 {
+  margin: 0;
+  color: var(--guild-text);
+  font: 700 1.35rem/1.2 Cinzel, serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.loading-meter {
+  width: min(360px, 100%);
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(211, 166, 88, 0.42);
+  border-radius: 999px;
+  background: rgba(10, 6, 14, 0.82);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.loading-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--guild-gold-bright), #b37346);
+  transition: width 0.18s ease;
+}
+
+.loading-text {
+  margin: 0;
+  color: var(--guild-muted);
+  font: 0.85rem/1.4 Cinzel, serif;
+}
+
+.dexterity-screen,
+.constitution-screen,
+.strength-screen,
+.agility-screen,
+.intelligence-screen,
+.guild-report-screen,
+.class-selection-screen,
+.coming-soon-screen {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.dexterity-screen::before,
+.constitution-screen::before,
+.strength-screen::before,
+.agility-screen::before,
+.intelligence-screen::before,
+.guild-report-screen::before,
+.class-selection-screen::before,
+.coming-soon-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 38%, transparent 0 34%, rgba(8, 5, 10, 0.55) 100%),
+    linear-gradient(180deg, rgba(18, 11, 20, 0.16), rgba(8, 5, 10, 0.42));
+}
+
+.dexterity-screen::after,
+.constitution-screen::after,
+.strength-screen::after,
+.agility-screen::after,
+.intelligence-screen::after,
+.guild-report-screen::after,
+.class-selection-screen::after,
+.coming-soon-screen::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -7%;
+  height: 24%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.48), transparent 70%);
+}
+
+.dexterity-screen > *,
+.constitution-screen > *,
+.strength-screen > *,
+.agility-screen > *,
+.intelligence-screen > *,
+.guild-report-screen > *,
+.class-selection-screen > *,
+.coming-soon-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.guild-report-screen {
+  background:
+    linear-gradient(180deg, rgba(35, 22, 10, 0.22), rgba(12, 8, 16, 0.78)),
+    url("./assets/images/challenges/intelligence-bg.jpg") center/cover no-repeat;
+}
+
+.dexterity-panel,
+.constitution-panel,
+.strength-panel,
+.agility-panel,
+.intelligence-panel,
+.class-panel,
+.coming-soon-panel,
+.menu-panel {
+  border-radius: 10px;
+  background: var(--guild-panel);
+  border: 1px solid var(--guild-border);
+  box-shadow: var(--guild-shadow), inset 0 0 80px rgba(211, 166, 88, 0.06);
+}
+
+.dexterity-panel,
+.constitution-panel,
+.strength-panel,
+.agility-panel,
+.intelligence-panel {
+  min-height: min(430px, calc(100dvh - 150px));
+  align-content: center;
+}
+
+.parchment-container {
+  transform: translateY(-1%);
+  box-shadow:
+    0 26px 72px rgba(0, 0, 0, 0.86),
+    0 18px 34px rgba(25, 12, 4, 0.42),
+    0 0 0 2px rgba(112, 78, 38, 0.5);
+}
+
+.menu-panel {
+  min-height: min(560px, 100%);
+  max-width: min(1120px, 100%);
+}
+
+.class-selection-screen,
+.coming-soon-screen {
+  background:
+    linear-gradient(180deg, rgba(18, 12, 22, 0.28), rgba(9, 6, 12, 0.68)),
+    url("./assets/images/challenges/intelligence-bg.jpg") center/cover no-repeat;
+}
+
 
 canvas#game {
   width: 100%;
@@ -1577,7 +1796,9 @@ canvas#game {
   justify-content: center;
   padding: var(--panel-pad);
   width: 100%;
-  min-height: min(520px, 100%);
+  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
   border-radius: 16px;
   background: rgba(28, 22, 35, 0.85);
   backdrop-filter: blur(14px);
@@ -1885,18 +2106,14 @@ canvas#game {
   font: 0.74rem/1.5 Cinzel, serif;
 }
 
-.controls {
-  margin: 0.5rem 0 0.25rem;
-  color: #d3c5cb;
-  font: 0.82rem/1.4 system-ui, -apple-system, sans-serif;
-  background: rgba(22, 17, 28, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.45rem 1.25rem;
-  border-radius: 30px;
-  border: 1px solid rgba(211, 166, 88, 0.25);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  text-align: center;
+.menu-panel {
+  height: 100%;
+  min-height: 100%;
+  max-width: min(1120px, 100%);
+  border-radius: 10px;
+  background: var(--guild-panel);
+  border: 1px solid var(--guild-border);
+  box-shadow: var(--guild-shadow), inset 0 0 80px rgba(211, 166, 88, 0.06);
 }
 
 @keyframes rise-in {
@@ -1932,7 +2149,8 @@ canvas#game {
   }
 
   .menu-panel {
-    min-height: auto;
+    height: 100%;
+    min-height: 100%;
     border-radius: 12px;
   }
 
@@ -1968,13 +2186,6 @@ canvas#game {
   .availability {
     font-size: 0.78rem;
     line-height: 1.45;
-  }
-
-  .controls {
-    font-size: 0.8rem;
-    padding: 0.45rem 0.8rem;
-    margin-top: 0.35rem;
-    width: min(100%, 980px);
   }
 
   .settings-actions {
